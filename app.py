@@ -89,10 +89,46 @@ CSS = """
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0}.tab{border:1px solid var(--line);border-radius:9px;padding:10px 13px;color:var(--muted);text-decoration:none}.tab.active,.tab:hover{background:#1a2c48;color:var(--text);border-color:#46638c}
 .layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(260px,.8fr);gap:18px;align-items:start}.panel{background:color-mix(in srgb,var(--panel) 95%,transparent);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:18px;min-width:0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.full{grid-column:1/-1}label{display:block;font-weight:650;font-size:12px;color:#d9e3f1;margin-bottom:7px}input,textarea,select{width:100%;padding:12px 13px;border:1px solid #33435b;border-radius:9px;background:#0b1220;color:var(--text);font:inherit;outline:none}input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #83aaff18}textarea{min-height:88px;resize:vertical}button{font:inherit;cursor:pointer}.primary{background:var(--blue);color:#07101f;border:0;padding:13px 17px;border-radius:10px;font-weight:800}.secondary{background:#182337;color:var(--text);border:1px solid var(--line);padding:12px 15px;border-radius:10px;font-weight:700}.primary:hover{filter:brightness(1.08)}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.muted{font-size:13px}.section{padding-top:18px;margin-top:18px;border-top:1px solid var(--line)}.list{display:grid;gap:10px}.item{padding:12px;background:#0b1220;border:1px solid var(--line);border-radius:10px}.item p{font-size:13px;color:var(--muted);margin:5px 0 0;line-height:1.5}.check{color:var(--green)}footer{color:#7889a1;font-size:12px;padding:12px 0}
 .preview-shell{position:sticky;top:12px}.preview-page{background:#fff;color:#111;border-radius:3px;box-shadow:0 12px 34px #0006;padding:34px 28px;min-height:410px;aspect-ratio:210/297;font-family:"Times New Roman",serif;font-size:10px;overflow:hidden;border:1px solid #d4dbe5}.preview-page .cover-title{text-align:center;text-transform:uppercase;font-weight:bold;font-size:14px;line-height:1.25;margin:18px 0 22px}.preview-page .cover-label{text-align:center;margin:12px 0}.preview-page .cover-name{text-align:center;font-size:12px;font-weight:bold;margin:14px 0}.preview-page .cover-university{text-align:center;font-weight:bold;margin-top:28px}.preview-page .preview-rule{border:0;border-top:1px solid #ddd;margin:20px 0}.preview-page .preview-chapter{font-size:12px;font-weight:bold;margin-top:12px}.preview-page .preview-copy{font-size:10px;line-height:1.35;white-space:pre-wrap;overflow-wrap:anywhere}.preview-status{font-size:12px;color:var(--muted);margin:9px 0 0}.preview-page .placeholder{color:#667085;font-style:italic}.preview-page .preview-page-number{text-align:center;margin-top:28px;color:#555}.@media(max-width:780px){.layout{grid-template-columns:1fr}.hero{padding:24px}.stats{grid-template-columns:1fr 1fr}}@media(max-width:520px){.wrap{padding:16px 12px 40px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.stats{grid-template-columns:1fr}.top{align-items:flex-start}}
+/* Professional UI refinement */
+:root{--bg:#080b12;--panel:#101722;--panel2:#141e2b;--line:#263244;--text:#f3f6fb;--muted:#9ba8ba;--blue:#9bbcff;--green:#7ddbb5}
+body{background:linear-gradient(180deg,#0b1220 0,#080b12 420px);font-size:14px;letter-spacing:-.01em}
+.wrap{max-width:1240px;padding:26px 28px 64px}
+.top{padding:8px 2px 20px;border-bottom:1px solid #1f2a3a;margin-bottom:26px}
+.brand{font-size:22px;letter-spacing:-.055em}.brand span{color:#8eb4ff}
+.tag{background:#0e1623;border-color:#2b394d;font-size:11px;letter-spacing:.04em}
+.hero{position:relative;overflow:hidden;padding:clamp(30px,5vw,58px);border-radius:24px;border-color:#2a3a50;background:linear-gradient(115deg,#142239 0%,#101827 55%,#10151f 100%);box-shadow:0 24px 70px #0004}
+.hero:after{content:"";position:absolute;right:-90px;top:-140px;width:390px;height:390px;border:1px solid #8eb4ff22;border-radius:50%;box-shadow:0 0 0 45px #8eb4ff08,0 0 0 90px #8eb4ff05;pointer-events:none}
+.eyebrow{letter-spacing:.18em;font-size:11px}
+h1{font-size:clamp(38px,5vw,64px);line-height:1.02;max-width:800px;letter-spacing:-.065em;margin:18px 0}
+.hero p{font-size:15px;max-width:650px}
+.stats{max-width:700px;gap:10px;margin-top:30px}
+.stat{background:#0b1320b8;border-color:#34445b;padding:16px;border-radius:13px}
+.stat strong{font-size:17px;letter-spacing:-.03em}.stat span{display:block;margin-top:5px}
+.tabs{gap:7px;margin:20px 0 18px}.tab{font-size:12px;padding:10px 14px;background:#0d1420;border-color:#263449;transition:background .18s,border-color .18s}
+.tab.active{background:#1a2b43;border-color:#49648b;color:#fff}
+.layout{grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:20px}
+.panel{padding:25px;border-radius:17px;background:linear-gradient(180deg,#111a27,#0e1520);border-color:#263449;box-shadow:0 10px 30px #00000012}
+.panel>h2{font-size:20px;letter-spacing:-.035em}
+label{font-size:12px;letter-spacing:.01em;color:#dce5f2;margin-bottom:8px}
+input,textarea,select{background:#090f19;border-color:#2c3b50;border-radius:10px;padding:13px 14px;font-size:13px;transition:border-color .16s,box-shadow .16s}
+input::placeholder,textarea::placeholder{color:#6f7d91}
+input:focus,textarea:focus,select:focus{border-color:#8eb4ff;box-shadow:0 0 0 3px #8eb4ff15}
+.grid{gap:17px}.primary,.secondary{border-radius:10px;transition:transform .15s,filter .15s,background .15s}
+.primary{background:#a6c2ff;color:#08111f;padding:13px 18px;box-shadow:0 5px 18px #8eb4ff1a}
+.primary:hover,.secondary:hover{transform:translateY(-1px)}
+.secondary{background:#141f2e;border-color:#34455c}.muted{line-height:1.65}
+.item{border-radius:12px;border-color:#26364b;background:#0b121d}
+.preview-shell{top:18px}.preview-page{border-radius:4px;box-shadow:0 20px 55px #0007;min-height:500px;padding:clamp(28px,4vw,44px) clamp(24px,3vw,36px)}
+.preview-status{line-height:1.5}
+.section{border-color:#263449}
+footer{padding-top:20px;border-top:1px solid #1c2736;margin-top:20px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}.preview-shell{position:static;max-width:650px;margin:0 auto;width:100%}.preview-page{min-height:560px}}
+@media(max-width:520px){.wrap{padding:14px 12px 36px}.top{flex-direction:column;gap:10px}.hero{padding:25px 20px}.hero:after{opacity:.35}.stats{grid-template-columns:1fr}.panel{padding:18px}.preview-page{min-height:480px}}
+
 """
 PAGE = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Slow-Steady · Academic Document Studio</title><style>""" + CSS + """</style></head><body><main class="wrap">
-<header class="top"><div class="brand">slow<span>·</span>steady</div><div class="tag">JUET document studio · v0.2</div></header>
-<section class="hero"><div class="eyebrow">Academic document automation</div><h1>Spend less time<br>formatting documents.</h1><p>Generate editable reports and presentations from a reusable project profile. The first version includes JUET report templates and the supplied Major Project presentation structure, with explicit placeholders where your own verified content is required.</p><div class="stats"><div class="stat"><strong>5</strong><span>report profiles</span></div><div class="stat"><strong>DOCX + PPTX</strong><span>editable exports</span></div><div class="stat"><strong>Rule-based</strong><span>format validation</span></div></div></section>
+<header class="top"><div class="brand">slow<span>·</span>steady</div><div class="tag">JUET DOCUMENT STUDIO&nbsp; / &nbsp;BETA</div></header>
+<section class="hero"><div class="eyebrow">A more disciplined academic workflow</div><h1>Academic documents.<br>Without the formatting chaos.</h1><p>Prepare JUET-style project reports and Major Project presentations in one focused workspace. Enter your project details, review the live preview, validate required fields, and export editable files.</p><div class="stats"><div class="stat"><strong>5</strong><span>report profiles</span></div><div class="stat"><strong>DOCX + PPTX</strong><span>editable exports</span></div><div class="stat"><strong>Rule-based</strong><span>format validation</span></div></div></section>
 <nav class="tabs"><a class="tab active" href="/">Generator</a><a class="tab" href="/health">System status</a><a class="tab" href="/docs">API docs</a></nav>
 <div class="layout"><form class="panel" method="post" action="/generate"><h2>Build your document</h2><p class="muted">Fill in project details once. Select a report profile or the Major Project presentation.</p>
 <div class="grid">
