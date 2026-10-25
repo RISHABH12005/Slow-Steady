@@ -1,54 +1,72 @@
-# Slow-Steady — University Document Automation
+# Slow-Steady — Academic Document Studio
 
-Slow-Steady reduces repetitive formatting work for university reports and presentations. The first implementation is a local web app that generates an editable JUET summer internship report DOCX from a form.
+Slow-Steady is an open-source document automation app for students. It generates editable JUET-focused DOCX report drafts and a text-only Major Project PPTX from reusable project details.
 
-## MVP status
+## Current features
 
-Implemented:
-- FastAPI web interface for internship report details.
-- DOCX export using `python-docx`.
-- A4 layout, JUET guideline margins, Times New Roman, 12 pt body text, 1.15 line spacing and styled headings.
-- Cover page and report sections with placeholders for authentic certificates, student-written content, references and appendices.
-- Page-number field and a review checklist.
+- Dark-mode responsive web interface.
+- Summer Internship, Minor I, Minor II, Major I and Major II report profiles.
+- Major Project presentation generator with 13 slides arranged around the supplied instructions' nine sections.
+- DOCX formatting: A4 page setup, 1-inch top/bottom/right margins, 1.5-inch left margin, Times New Roman 12 pt body, 1.15 line spacing, 16 pt Heading 1 and 14 pt Heading 2.
+- PPTX generation using editable text slides; no AI-generated images are inserted.
+- Basic validation endpoint, profile API and automated tests.
+- Render web service configured for automatic deployment from main.
 
-Not yet implemented:
-- PPTX generation.
-- Minor I/II and Major I/II-specific report profiles.
-- Automatic table of contents and Roman-to-Arabic section numbering.
-- PDF guideline import, saved projects or full compliance validation.
+## Deployment
+
+Render service: https://slow-steady.onrender.com  
+Health endpoint: https://slow-steady.onrender.com/health  
+API docs: https://slow-steady.onrender.com/docs
+
+A deployment being configured does not guarantee the latest build is healthy. Verify the health endpoint and generate sample files before relying on the site.
 
 ## Run locally
 
 Requires Python 3.10 or later.
 
-```bash
-python -m venv .venv
-# Windows PowerShell:
-.venv\Scripts\Activate.ps1
-# macOS/Linux:
-# source .venv/bin/activate
-
+```powershell
+git clone https://github.com/RISHABH12005/Slow-Steady.git
+cd Slow-Steady
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-uvicorn app:app --reload
+python -m uvicorn app:app --reload
 ```
 
 Open http://127.0.0.1:8000.
 
-If `python` is not found on Windows, install Python from python.org with “Add Python to PATH”, or use the Python Launcher command `py -m venv .venv`.
+Run tests with `python -m pytest -q`.
 
-## JUET guideline notes
+## API
 
-The supplied Summer Internship Report Guidelines specify A4 portrait pages, Times New Roman, 1-inch top/bottom/right margins, 1.5-inch left margin, 16 pt bold chapter names, 14 pt bold headings, 12 pt normal text and 1.15 line spacing. They specify centered page numbers, lowercase Roman numerals before the table of contents, Arabic numbering starting at 1 after the contents, and a minimum of 40 pages after the index.
+- `GET /` — dark-mode web app
+- `GET /health` — health/status
+- `GET /api/profiles` — report and PPT section definitions
+- `POST /generate` — form-encoded fields; returns DOCX or PPTX according to `document_type`
+- `POST /api/validate` — basic missing-content checks
 
-The supplied Major Project PPT instructions require nine sections and explicitly prohibit AI-generated images in any part of the presentation. The future PPT generator must preserve this constraint.
+Accepted `document_type` values: `internship`, `minor1`, `minor2`, `major1`, `major2`, `major_ppt`.
 
-## Academic integrity
+## JUET rules and accuracy notes
 
-The generator does not create official certificates, signatures, approvals, project results or verified references. Replace bracketed placeholders with truthful content and confirm current department rules before submission. The generated report is a draft, not a guarantee of compliance.
+The supplied Summer Internship Report Guidelines specify A4 portrait, Times New Roman, 1-inch top/bottom/right margins, 1.5-inch left margin, 16 pt bold chapter names, 14 pt bold headings, 12 pt normal text and 1.15 line spacing. They specify centered bottom page numbers, lowercase Roman numerals before the table of contents, Arabic numbering starting at 1 after it, and at least 40 pages after the index.
+
+The supplied Major Project PPT instructions specify Introduction (1 slide), Problem Statement (1), Literature Review (1–2), Work Plan (1), Individual Contribution (1), Work Done So Far (3–4), Work to be Done (1), Conclusion (1), and References (1 in IEEE format). This generator uses a 13-slide version: two literature review slides and four work-completed slides.
+
+**The supplied PPT instructions prohibit AI-generated images in any part of the presentation.** This generator creates text-only slides. The Minor/Major report structures are starter profiles until checked against their exact official report guidelines; do not treat them as certified JUET formats.
+
+## Important limitations
+
+- The generated DOCX includes a table-of-contents placeholder; insert/update the automatic TOC in Word or LibreOffice.
+- Roman numeral front matter numbering and Arabic numbering after the contents still require final validation.
+- The internship guideline states at least 40 pages after the index; generated starter drafts do not automatically meet that length.
+- Validation checks are basic, not full semantic or layout compliance.
+- Inspect generated files, replace placeholders, verify sources, and check current departmental rules before submission.
+- The tool must not invent certificates, signatures, approvals, results, citations or individual contributions.
 
 ## Stack
 
-Python, FastAPI, python-docx. Planned: python-pptx, PDF extraction and optional local Ollama integration.
+Python, FastAPI, python-docx, python-pptx, pytest. No AI API or Ollama is currently required to generate files; local AI assistance can be added later.
 
 ## License
 
