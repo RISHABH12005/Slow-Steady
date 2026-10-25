@@ -334,10 +334,13 @@ def build_ppt(data):
     enrollment=data.get("enrollment","").strip()
     year=data.get("year",str(date.today().year))
     if kind=="major_ppt":
+        # PPT instructions call for 1 intro + 1 problem + 1–2 literature + work plan
+        # + individual contribution + 3–4 work-so-far + work remaining + conclusion + refs.
+        # Exactly 12 content slides plus a cover slide = 13 slides total.
         sections=[
           ("Introduction",overview or "Add the project context, motivation and objective.",1),
           ("Problem Statement",overview or "Define the problem, intended users, scope and constraints.",1),
-          ("Literature Review","Summarize verified prior work and the gap addressed by this project.",2),
+          ("Literature Review","Summarize verified prior work and the gap addressed by this project.",1),
           ("Work Plan",contribution or "Add the weekly-report-aligned milestones and dates.",1),
           ("Individual Contribution",contribution or f"State the verified contribution of {student or 'each team member'}.",1),
           ("Work Done So Far",work or "Add evidence-backed work completed so far.",4),
@@ -349,7 +352,6 @@ def build_ppt(data):
         for heading,body,count in sections:
             for n in range(count):
                 text=body
-                if heading=="Literature Review" and n==1: text="Explain the research or engineering gap and how this project addresses it."
                 if heading=="Work Done So Far" and n==1: text=results or "Add verified implementation or methodology evidence."
                 if heading=="Work Done So Far" and n==2: text="Add testing, experiments or analysis with actual evidence."
                 if heading=="Work Done So Far" and n==3: text="Add a distinct design, evaluation or results summary."
