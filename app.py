@@ -155,6 +155,7 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 <button type="button" class="choice" data-type="minor2"><span class="choice-icon">03</span><div><h2>Minor Project II Report</h2><p>Project implementation or research progress, analysis and results.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="major1"><span class="choice-icon">04</span><div><h2>Major Project I Report</h2><p>Requirements, methodology, work completed and the next milestones.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="major2"><span class="choice-icon">05</span><div><h2>Major Project II Report</h2><p>Final design, implementation, testing, evaluation and conclusions.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<div class="sr-only-profile-labels" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"><span>Major Project Presentation</span></div>
 <button type="button" class="choice" data-type="major_ppt"><span class="choice-icon">06</span><div><h2>Major Project PPT</h2><p>Required major-project review sections, individual contribution, progress evidence and IEEE references.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="minor_ppt"><span class="choice-icon">07</span><div><h2>Major & Minor Project PPT</h2><p>Project problem, approach, progress, key evidence and next steps.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="internship_ppt"><span class="choice-icon">08</span><div><h2>Summer Internship Report PPT</h2><p>Internship overview, organization, work completed, outcomes and learning.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
@@ -319,7 +320,7 @@ def add_slide(prs,title,body,number,total):
 def build_ppt(data):
     prs=Presentation()
     prs.slide_width=PptInches(13.333); prs.slide_height=PptInches(7.5)
-    kind=data.get("presentation_type") or data.get("document_type","major_ppt")
+    kind=data.get("presentation_type") or (data.get("document_type") if data.get("document_type") in {"major_ppt","minor_ppt","internship_ppt"} else "major_ppt")
     title=data["project_title"]
     refs=data.get("references","").strip()
     overview=data.get("overview","").strip()
