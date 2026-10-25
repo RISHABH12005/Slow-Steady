@@ -155,7 +155,7 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 <button type="button" class="choice" data-type="minor2"><span class="choice-icon">03</span><div><h2>Minor Project II Report</h2><p>Project implementation or research progress, analysis and results.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="major1"><span class="choice-icon">04</span><div><h2>Major Project I Report</h2><p>Requirements, methodology, work completed and the next milestones.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="major2"><span class="choice-icon">05</span><div><h2>Major Project II Report</h2><p>Final design, implementation, testing, evaluation and conclusions.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
-<button type="button" class="choice" data-type="major_ppt"><span class="choice-icon">06</span><div><h2>Major Project Presentation</h2><p>Major presentation sections, individual contribution and IEEE references.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="major_ppt"><span class="choice-icon">06</span><div><h2>Major Project PPT</h2><p>Required major-project review sections, individual contribution, progress evidence and IEEE references.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="minor_ppt"><span class="choice-icon">07</span><div><h2>Minor Project PPT</h2><p>Project problem, approach, progress, key evidence and next steps.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="internship_ppt"><span class="choice-icon">08</span><div><h2>Summer Internship Report PPT</h2><p>Internship overview, organization, work completed, outcomes and learning.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
 </div>
@@ -189,7 +189,7 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 </aside></div></section>
 <footer>Slow-Steady · Academic document workspace · Exported files should be reviewed before submission.</footer></main>
 <script>
-const profileNames={internship:"Summer Internship Report",minor1:"Minor Project I Report",minor2:"Minor Project II Report",major1:"Major Project I Report",major2:"Major Project II Report",major_ppt:"Major Project Presentation",minor_ppt:"Minor Project PPT",internship_ppt:"Summer Internship Report PPT"};
+const profileNames={internship:"Summer Internship Report",minor1:"Minor Project I Report",minor2:"Minor Project II Report",major1:"Major Project I Report",major2:"Major Project II Report",major_ppt:"Major Project PPT",minor_ppt:"Minor Project PPT",internship_ppt:"Summer Internship Report PPT"};
 const profileChapters={internship:"1. INTRODUCTION",minor1:"1. INTRODUCTION",minor2:"1. INTRODUCTION",major1:"1. INTRODUCTION",major2:"1. INTRODUCTION",major_ppt:"Introduction",minor_ppt:"Project Overview",internship_ppt:"Internship Overview"};
 const presentationTypes=new Set(["major_ppt","minor_ppt","internship_ppt"]);
 function valueOf(name,fallback){const el=document.querySelector('#builderForm [name="'+name+'"]');return el&&el.value.trim()?el.value.trim():fallback;}
@@ -296,27 +296,75 @@ def add_slide(prs,title,body,number,total):
     footer.text=f"Slow-Steady  ·  {number:02d} / {total:02d}"; footer.font.size=PptPt(10); footer.font.color.rgb=RGBColor(139,157,185)
 
 def build_ppt(data):
-    prs=Presentation(); prs.slide_width=PptInches(13.333); prs.slide_height=PptInches(7.5)
-    contents={
-      "Introduction":[data["overview"] or "Project context, motivation and objectives."],
-      "Problem Statement":[data["overview"] or "Define the problem, users, scope and constraints."],
-      "Literature Review":["Summarize relevant prior work with verified citations.","State the gap your project addresses."],
-      "Work Plan":[data["contribution"] or "Add weekly-report-aligned milestones and dates."],
-      "Individual Contribution":[data["contribution"] or "State each team member’s actual contribution."],
-      "Work Done So Far":[data["work"] or "Add evidence of work completed.",data["results"] or "Add verified tests, experiments or analysis.","Add implementation/design evidence; research projects should show methodology and analysis."],
-      "Work to be Done":["Add remaining tasks, milestones, owners and risks."],
-      "Conclusion":[data["conclusion"] or "Summarize only conclusions supported by current evidence."],
-      "References":[data["references"] or "Add verified references in IEEE format."]
-    }
-    sections=[]
-    for title,count,desc in PPT_SECTIONS:
-        bodies=contents[title]
-        for n in range(count):
-            body=bodies[n] if n<len(bodies) else desc
-            if title=="Work Done So Far" and count==4 and n>=len(bodies): body="Add a distinct evidence-backed detail: design, implementation, testing or analysis."
-            sections.append((title if count==1 else f"{title} ({n+1})",body))
-    total=len(sections)
-    for i,(title,body) in enumerate(sections,1): add_slide(prs,data["project_title"] if i==1 else title,body,i,total)
+    prs=Presentation()
+    prs.slide_width=PptInches(13.333); prs.slide_height=PptInches(7.5)
+    kind=data.get("presentation_type") or data.get("document_type","major_ppt")
+    title=data["project_title"]
+    refs=data.get("references","").strip()
+    overview=data.get("overview","").strip()
+    work=data.get("work","").strip()
+    results=data.get("results","").strip()
+    contribution=data.get("contribution","").strip()
+    conclusion=data.get("conclusion","").strip()
+    organization=data.get("organization","").strip()
+    guide=data.get("guide","").strip()
+    student=data.get("student_name","").strip()
+    enrollment=data.get("enrollment","").strip()
+    year=data.get("year",str(date.today().year))
+    if kind=="major_ppt":
+        sections=[
+          ("Introduction",overview or "Add the project context, motivation and objective.",1),
+          ("Problem Statement",overview or "Define the problem, intended users, scope and constraints.",1),
+          ("Literature Review","Summarize verified prior work and the gap addressed by this project.",2),
+          ("Work Plan",contribution or "Add the weekly-report-aligned milestones and dates.",1),
+          ("Individual Contribution",contribution or f"State the verified contribution of {student or 'each team member'}.",1),
+          ("Work Done So Far",work or "Add evidence-backed work completed so far.",4),
+          ("Work to be Done","Add remaining tasks, milestones, owners and risks.",1),
+          ("Conclusion",conclusion or "Summarize only conclusions supported by current evidence.",1),
+          ("References",refs or "Add verified references in IEEE format.",1)
+        ]
+        slide_items=[]
+        for heading,body,count in sections:
+            for n in range(count):
+                text=body
+                if heading=="Literature Review" and n==1: text="Explain the research or engineering gap and how this project addresses it."
+                if heading=="Work Done So Far" and n==1: text=results or "Add verified implementation or methodology evidence."
+                if heading=="Work Done So Far" and n==2: text="Add testing, experiments or analysis with actual evidence."
+                if heading=="Work Done So Far" and n==3: text="Add a distinct design, evaluation or results summary."
+                slide_items.append((heading if count==1 else f"{heading} ({n+1})",text))
+    elif kind=="minor_ppt":
+        slide_items=[
+          ("Project Title",f"{title}\n{student} · {enrollment}\nMinor Project Presentation · {year}"),
+          ("Introduction",overview or "Introduce the project domain, motivation and intended users."),
+          ("Problem Statement",overview or "Define the specific problem, scope and objectives."),
+          ("Literature Review", "Summarize verified related work and identify the gap."),
+          ("Objectives", "List measurable objectives and expected deliverables."),
+          ("Proposed Methodology",work or "Describe the proposed approach, tools, architecture and workflow."),
+          ("System Design / Research Method", "Add architecture/UML for application-based work, or dataset and methodology for research-based work."),
+          ("Work Completed",work or "Describe the actual progress completed so far."),
+          ("Work Plan",contribution or "Add milestones and timeline aligned with the project plan."),
+          ("Expected Outcomes / Initial Results",results or "Describe expected outcomes or verified initial results; do not invent results."),
+          ("Conclusion and Next Steps",conclusion or "Summarize the current status and the next milestone."),
+          ("References",refs or "Add the sources cited in the presentation.")
+        ]
+    else:
+        slide_items=[
+          ("Internship Overview",f"{title}\n{student} · {enrollment}\n{organization or 'Organization name'} · {year}"),
+          ("Organization Profile",organization or "Add verified details about the organization, team and domain."),
+          ("Internship Objectives",overview or "Describe the internship objectives and expected learning outcomes."),
+          ("Problem / Project Scope",overview or "Explain the assigned problem, users and scope."),
+          ("Tools and Technologies",work or "List the technologies and tools actually used."),
+          ("Work Completed",work or "Describe the work completed during the internship."),
+          ("Implementation / Methodology",work or "Explain the approach, design and implementation steps."),
+          ("Results and Learning",results or "Present verified outcomes, tests and lessons learned."),
+          ("Challenges and Solutions","Describe real challenges encountered and how they were addressed."),
+          ("Conclusion and Future Work",conclusion or "Summarize outcomes and possible next steps."),
+          ("References",refs or "Add sources cited in the presentation.")
+        ]
+    total=len(slide_items)+1
+    add_slide(prs,title, f"{student}\n{enrollment}\n{organization if kind=='internship_ppt' else 'Jaypee University of Engineering and Technology'}\n{year}",1,total)
+    for i,(heading,body) in enumerate(slide_items,2):
+        add_slide(prs,heading,body,i,total)
     out=BytesIO(); prs.save(out); out.seek(0); return out
 
 @app.get("/api/self-test")
