@@ -224,6 +224,63 @@ def build_ppt(data):
     for i,(title,body) in enumerate(sections,1): add_slide(prs,data["project_title"] if i==1 else title,body,i,total)
     out=BytesIO(); prs.save(out); out.seek(0); return out
 
+@app.get("/api/self-test")
+def self_test():
+    """Generate and reopen sample outputs to verify the deployed document libraries."""
+    sample = {
+        "document_type": "internship", "project_title": "Automated Output Test",
+        "student_name": "Test Student", "enrollment": "TEST-001",
+        "organization": "Test Organization", "guide": "Test Guide",
+        "department": "Computer Science and Engineering", "year": "2026",
+        "overview": "Sample overview for automated output verification.",
+        "work": "Sample work and methodology.", "results": "Sample test results.",
+        "contribution": "Sample contribution and plan.", "conclusion": "Sample conclusion.",
+        "references": "[1] Sample reference for output verification."
+    }
+    checks = {}
+    errors = []
+    try:
+        doc_bytes = build_report(sample).getvalue()
+        parsed_doc = Document(BytesIO(doc_bytes))
+        checks["docx_generated_and_reopened"] = bool(parsed_doc.paragraphs)
+        checks["docx_a4_and_margins"] = (
+            abs(parsed_doc.sections[0].page_width.inches - 8.27) < 0.02
+            and abs(parsed_doc.sections[0].page_height.inches - 11.69) < 0.02
+            and abs(parsed_doc.sections[0].left_margin.inches - 1.5) < 0.01
+            and abs(parsed_doc.sections[0].right_margin.inches - 1.0) < 0.01
+        )
+        checks["docx_times_new_roman_12pt"] = (
+            parsed_doc.styles["Normal"].font.name == "Times New Roman"
+            and parsed_doc.styles["Normal"].font.size.pt == 12
+        )
+        checks["all_five_report_profiles_generate"] = True
+        for profile in REPORT_PROFILES:
+            candidate = dict(sample, document_type=profile)
+            reopened = Document(BytesIO(build_report(candidate).getvalue()))
+            if not reopened.paragraphs:
+                checks["all_five_report_profiles_generate"] = False
+        ppt_bytes = build_ppt(sample).getvalue()
+        parsed_ppt = Presentation(BytesIO(ppt_bytes))
+        checks["pptx_generated_and_reopened"] = len(parsed_ppt.slides) == 13
+        ppt_text = "\\n".join(
+            shape.text for slide in parsed_ppt.slides
+            for shape in slide.shapes if shape.has_text_frame
+        )
+        checks["pptx_required_sections"] = all(
+            heading in ppt_text for heading in (
+                "Problem Statement", "Literature Review", "Work Plan",
+                "Individual Contribution", "Work Done So Far",
+                "Work to be Done", "Conclusion", "References"
+            )
+        )
+    except Exception as exc:
+        errors.append(f"{type(exc).__name__}: {exc}")
+    passed = bool(checks) and all(checks.values()) and not errors
+    return JSONResponse(
+        {"status": "passed" if passed else "failed", "checks": checks, "errors": errors},
+        status_code=200 if passed else 500
+    )
+
 @app.get("/",response_class=HTMLResponse)
 def home(): return HTMLResponse(PAGE)
 
