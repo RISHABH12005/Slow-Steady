@@ -252,7 +252,7 @@ def generate(document_type:str=Form(...),project_title:str=Form(...),student_nam
 def validate(document_type:str=Form(...),project_title:str=Form(""),student_name:str=Form(""),overview:str=Form(""),work:str=Form(""),results:str=Form(""),references:str=Form("")):
     issues=[]
     for key,label in [("project_title","Project title"),("student_name","Student/presenter name")]:
-        if not locals()[key].strip(): issues.append({"severity":"error","rule":f"required_{key}","message":f"{label} is missing."})
+        if not {"project_title": project_title, "student_name": student_name}[key].strip(): issues.append({"severity":"error","rule":f"required_{key}","message":f"{label} is missing."})
     if not overview.strip(): issues.append({"severity":"warning","rule":"overview_present","message":"Project overview/problem statement is empty."})
     if not work.strip(): issues.append({"severity":"warning","rule":"work_present","message":"Work completed/methodology is empty."})
     if not results.strip(): issues.append({"severity":"warning","rule":"results_present","message":"Results/analysis is empty."})
