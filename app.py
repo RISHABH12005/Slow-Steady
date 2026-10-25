@@ -126,50 +126,85 @@ footer{padding-top:20px;border-top:1px solid #1c2736;margin-top:20px}
 @media(max-width:520px){.wrap{padding:14px 12px 36px}.top{flex-direction:column;gap:10px}.hero{padding:25px 20px}.hero:after{opacity:.35}.stats{grid-template-columns:1fr}.panel{padding:18px}.preview-page{min-height:480px}}
 
 """
-PAGE = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Slow-Steady · Academic Document Studio</title><style>""" + CSS + """</style></head><body><main class="wrap">
-<header class="top"><div class="brand">slow<span>·</span>steady</div><div class="tag">JUET DOCUMENT STUDIO&nbsp; / &nbsp;BETA</div></header>
-<section class="hero"><div class="eyebrow">A more disciplined academic workflow</div><h1>Academic documents.<br>Without the formatting chaos.</h1><p>Prepare JUET-style project reports and Major Project presentations in one focused workspace. Enter your project details, review the live preview, validate required fields, and export editable files.</p><div class="stats"><div class="stat"><strong>5</strong><span>report profiles</span></div><div class="stat"><strong>DOCX + PPTX</strong><span>editable exports</span></div><div class="stat"><strong>Rule-based</strong><span>format validation</span></div></div></section>
-<nav class="tabs"><a class="tab active" href="/">Generator</a><a class="tab" href="/health">System status</a><a class="tab" href="/docs">API docs</a></nav>
-<div class="layout"><form class="panel" method="post" action="/generate"><h2>Build your document</h2><p class="muted">Fill in project details once. Select a report profile or the Major Project presentation.</p>
+PAGE = """<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Slow-Steady · Document Studio</title><style>""" + CSS + """
+:root{--accent:#a5c2ff;--accent2:#d1e0ff;--surface:#111a27;--surface2:#0c131e}
+body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 60px}
+.top{margin-bottom:28px;padding-bottom:18px}.brand{font-size:21px}.brand span{color:var(--accent)}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#a6bbdc;font-weight:800}
+.dashboard-intro{max-width:760px;margin:18px 0 28px}.dashboard-intro h1{font-size:clamp(36px,5vw,54px);letter-spacing:-.055em;line-height:1.05;margin:12px 0}.dashboard-intro p{color:var(--muted);font-size:15px;line-height:1.7}
+.screen{display:none}.screen.active{display:block}.choice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.choice{display:flex;flex-direction:column;gap:14px;text-align:left;color:var(--text);padding:21px;min-height:190px;background:linear-gradient(145deg,#141f2e,#0e1520);border:1px solid #2a394d;border-radius:16px;transition:transform .18s,border-color .18s,background .18s;cursor:pointer}
+.choice:hover{transform:translateY(-3px);border-color:#6b8dbd;background:linear-gradient(145deg,#1b2b40,#101a29)}
+.choice:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.choice-icon{display:grid;place-items:center;width:40px;height:40px;background:#243751;border:1px solid #3b5271;border-radius:12px;color:var(--accent);font-weight:800;font-size:16px}
+.choice h2{font-size:16px;margin:0;letter-spacing:-.025em}.choice p{font-size:12px;line-height:1.55;color:var(--muted);margin:7px 0 0}.choice-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;color:#a8c3f3;font-size:12px;font-weight:700}.choice-type{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#8e9fb7}
+.workspace-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.workspace-head h1{font-size:26px;letter-spacing:-.04em;margin:5px 0}.back-btn{background:#111b29;color:#d6e4f9;border:1px solid #2d4059;border-radius:10px;padding:11px 14px;font-weight:700}.back-btn:hover{background:#19283b}
+.workspace-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.9fr);gap:18px;align-items:start}
+.workspace-form{max-height:none}.form-scroll{display:block}.workspace-preview{position:sticky;top:12px}.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.live-dot{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:#8ee0bc}.live-dot:before{content:"";width:7px;height:7px;background:#69d7a8;border-radius:50%;box-shadow:0 0 0 3px #69d7a81c}
+.workspace-preview .preview-page{max-width:520px;margin:auto;min-height:650px;aspect-ratio:210/297;padding:40px 32px}.preview-placeholder{font-family:inherit;color:var(--muted);font-size:13px;line-height:1.6;padding:14px;background:#0c1420;border:1px solid #27364a;border-radius:10px;margin-bottom:14px}
+.format-note{font-size:12px;color:#99a8bd;line-height:1.6;margin-top:12px}.field-help{font-size:11px;color:#8596ac;margin-top:6px;line-height:1.45}
+.action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid #273449}.hidden{display:none!important}
+@media(max-width:1080px){.choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace-layout{grid-template-columns:minmax(0,1fr) minmax(300px,.85fr)}}
+@media(max-width:760px){.wrap{padding:16px 13px 40px}.choice-grid{grid-template-columns:1fr}.choice{min-height:0;padding:18px}.workspace-layout{grid-template-columns:1fr}.workspace-preview{position:static}.workspace-preview .preview-page{min-height:540px}.workspace-head{align-items:flex-start;flex-direction:column}.workspace-head h1{font-size:23px}.dashboard-intro h1{font-size:37px}.panel{padding:18px}.workspace-form{order:1}.workspace-preview{order:2}}
+</style></head><body><main class="wrap">
+<header class="top"><div class="brand">slow<span>·</span>steady <span style="color:#7d8ca2;font-size:12px;font-weight:500;letter-spacing:0">/ DOCUMENT STUDIO</span></div><div class="tag">JUET ACADEMIC WORKSPACE</div></header>
+<section id="dashboard" class="screen active" aria-labelledby="dashTitle">
+<div class="dashboard-intro"><div class="kicker">Workspace / 01</div><h1 id="dashTitle">What are you working on?</h1><p>Choose a document to get started. Your editor and live page preview will open together in the next step, so you can work and review the layout side by side.</p></div>
+<div class="choice-grid">
+<button type="button" class="choice" data-type="internship"><span class="choice-icon">01</span><div><h2>Summer Internship Report</h2><p>Organization profile, work completed, implementation, results and references.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="minor1"><span class="choice-icon">02</span><div><h2>Minor Project I Report</h2><p>Problem definition, literature review, methodology and project plan.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="minor2"><span class="choice-icon">03</span><div><h2>Minor Project II Report</h2><p>Project implementation or research progress, analysis and results.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="major1"><span class="choice-icon">04</span><div><h2>Major Project I Report</h2><p>Requirements, methodology, work completed and the next milestones.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="major2"><span class="choice-icon">05</span><div><h2>Major Project II Report</h2><p>Final design, implementation, testing, evaluation and conclusions.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="major_ppt"><span class="choice-icon">06</span><div><h2>Major Project Presentation</h2><p>Major presentation sections, individual contribution and IEEE references.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="minor_ppt"><span class="choice-icon">07</span><div><h2>Minor Project PPT</h2><p>Project problem, approach, progress, key evidence and next steps.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="internship_ppt"><span class="choice-icon">08</span><div><h2>Summer Internship Report PPT</h2><p>Internship overview, organization, work completed, outcomes and learning.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+</div>
+<p class="muted" style="margin-top:22px">All exported files are editable drafts. Verify your department's current format and review the final file before submission.</p>
+</section>
+<section id="workspace" class="screen" aria-labelledby="workspaceTitle">
+<div class="workspace-head"><div><div class="kicker">Workspace / 02</div><h1 id="workspaceTitle">Build your document</h1><div id="workspaceSubtitle" class="muted">Enter project details on the left. The preview updates as you type.</div></div><button type="button" id="backToDashboard" class="back-btn">← All document types</button></div>
+<div class="workspace-layout">
+<form id="builderForm" class="panel workspace-form" method="post" action="/generate">
+<h2>Document details</h2><p class="muted">Add verified project information. Required fields are marked with an asterisk.</p>
+<input type="hidden" name="document_type" id="document_type" value="internship">
 <div class="grid">
-<div class="full"><label>Document type</label><select name="document_type" id="document_type" onchange="toggleFormat()"><option value="internship">Summer Internship Report · DOCX</option><option value="minor1">Minor Project I Report · DOCX</option><option value="minor2">Minor Project II Report · DOCX</option><option value="major1">Major Project I Report · DOCX</option><option value="major2">Major Project II Report · DOCX</option><option value="major_ppt">Major Project Presentation · PPTX</option></select></div>
 <div class="full"><label>Project title *</label><input name="project_title" required placeholder="A specific, meaningful project title"></div>
 <div><label>Student / presenter *</label><input name="student_name" required placeholder="Full name"></div><div><label>Enrollment number</label><input name="enrollment" placeholder="Enrollment number"></div>
-<div><label>Organization / company</label><input name="organization" placeholder="Internship organization (if applicable)"></div><div><label>Supervisor / project guide</label><input name="guide" placeholder="Guide or supervisor"></div>
+<div id="organizationField"><label>Organization / company</label><input name="organization" placeholder="Internship organization"></div><div><label>Supervisor / project guide</label><input name="guide" placeholder="Guide or supervisor"></div>
 <div><label>Department</label><input name="department" value="Computer Science and Engineering"></div><div><label>Academic year</label><input name="year" type="number" value="2026"></div>
 <div class="full"><label>Project overview / problem statement</label><textarea name="overview" placeholder="Problem, intended users, objectives and scope"></textarea></div>
 <div class="full"><label>Work completed / methodology</label><textarea name="work" placeholder="Actual work completed, design, implementation or research methodology"></textarea></div>
 <div class="full"><label>Results / analysis</label><textarea name="results" placeholder="Verified findings, test results, measurements and limitations"></textarea></div>
-<div class="full"><label>Individual contribution / work plan</label><textarea name="contribution" placeholder="Actual contribution by each member and/or milestones aligned with weekly reports"></textarea></div>
+<div class="full"><label>Individual contribution / work plan</label><textarea name="contribution" placeholder="Actual contribution by each member and/or milestones"></textarea></div>
 <div class="full"><label>Conclusion / future work</label><textarea name="conclusion" placeholder="Evidence-backed conclusions and remaining work"></textarea></div>
-<div class="full"><label>References (one per line)</label><textarea name="references" placeholder="Paste verified references; PPT output uses an IEEE-style references slide"></textarea></div>
-</div><div class="section row"><button class="primary" type="submit">Generate document ↗</button><button class="secondary" type="reset">Clear form</button></div><p class="muted">Generated files are drafts. Replace placeholders, verify content, and confirm current department requirements before submission.</p></form>
-<aside><section class="panel preview-shell"><h2>Live document preview</h2><p class="muted">Updates as you type. This preview follows the selected profile; the downloaded file remains the final format to review.</p><div class="preview-page" id="livePreview" aria-live="polite"><div class="cover-title" id="pvTitle">PROJECT TITLE</div><div class="cover-label" id="pvType">Summer Internship Report</div><div class="cover-label">Submitted by</div><div class="cover-name" id="pvStudent">Student name (Enrollment No.)</div><div class="cover-label" id="pvGuide">Under the guidance of: Guide name</div><div class="cover-university">JAYPEE UNIVERSITY OF ENGINEERING AND TECHNOLOGY</div><div class="cover-label" id="pvDepartment">COMPUTER SCIENCE AND ENGINEERING</div><div class="cover-label" id="pvYear">Guna, Madhya Pradesh · 2026</div><hr class="preview-rule"><div class="preview-chapter" id="pvChapter">1. INTRODUCTION</div><div class="preview-copy" id="pvOverview">[Your project overview will appear here.]</div><div class="preview-chapter">Work / Methodology</div><div class="preview-copy" id="pvWork">[Your work details will appear here.]</div><div class="preview-page-number">1</div></div><div class="preview-status" id="previewStatus">Live preview · Cover page</div></section><section class="panel"><h2>Profiles included</h2><div class="list"><div class="item"><h3>Internship report</h3><p>Front matter, organization, work description, design, implementation/testing, results, references and appendices.</p></div><div class="item"><h3>Minor I / Minor II</h3><p>Proposal and progress-focused chapter structures; check against your official report format.</p></div><div class="item"><h3>Major I / Major II</h3><p>Planning/progress and final implementation/evaluation report structures.</p></div><div class="item"><h3>Major Project PPT</h3><p>Nine required sections, including work plan, individual contribution, work completed and IEEE references.</p></div></div></section>
-<section class="panel"><h2>Compliance checks</h2><div class="list"><div class="item"><span class="check">✓</span> DOCX page setup and typography</div><div class="item"><span class="check">✓</span> Required section headings</div><div class="item"><span class="check">✓</span> Missing-content warnings</div><div class="item"><span class="check">✓</span> PPT slide order and count</div><div class="item"><span class="check">!</span> Page numbering and TOC need final review in Word/LibreOffice</div></div><p class="muted">JUET's supplied Major Project PPT instructions prohibit AI-generated images. This generator uses text-only slides and does not insert AI-generated images.</p></section></aside></div><footer>Slow-Steady · Open-source academic document automation · Review generated files before submission.</footer></main>
+<div class="full"><label>References (one per line)</label><textarea name="references" placeholder="Paste verified references; include only sources you used"></textarea></div>
+</div>
+<div class="action-bar"><button class="primary" type="submit">Generate editable file ↗</button><button class="secondary" type="reset">Clear fields</button></div>
+<p class="muted">The right-hand preview is a live layout guide. Always open the exported DOCX/PPTX to verify exact pagination and content.</p>
+</form>
+<aside class="panel workspace-preview"><div class="preview-toolbar"><div><h2 style="margin:0">Live preview</h2><div class="muted" style="margin-top:5px">Updates while you type</div></div><span class="live-dot">LIVE</span></div>
+<div id="pptPreviewNote" class="preview-placeholder hidden">Presentation mode selected. Review the cover and key content preview below; the exported file contains the slide sequence for this profile.</div>
+<div class="preview-page" id="livePreview" aria-live="polite"><div class="cover-title" id="pvTitle">PROJECT TITLE</div><div class="cover-label" id="pvType">Summer Internship Report</div><div class="cover-label" id="pvCompletedAt">Completed At<br>Organization name</div><div class="cover-label">Submitted by</div><div class="cover-name" id="pvStudent">Student name (Enrollment No.)</div><div class="cover-label" id="pvGuide">Under the guidance of: Guide name</div><div class="cover-university">JAYPEE UNIVERSITY OF ENGINEERING AND TECHNOLOGY</div><div class="cover-label" id="pvDepartment">COMPUTER SCIENCE AND ENGINEERING</div><div class="cover-label" id="pvYear">Guna, Madhya Pradesh · 2026</div><hr class="preview-rule"><div class="preview-chapter" id="pvChapter">1. INTRODUCTION</div><div class="preview-copy" id="pvOverview">[Your project overview will appear here.]</div><div class="preview-chapter">Work / Methodology</div><div class="preview-copy" id="pvWork">[Your work details will appear here.]</div><div class="preview-page-number">1</div></div>
+<div class="preview-status" id="previewStatus">Live preview · Cover and sample content</div>
+</aside></div></section>
+<footer>Slow-Steady · Academic document workspace · Exported files should be reviewed before submission.</footer></main>
 <script>
-const profileNames={internship:"Summer Internship Report",minor1:"Minor Project I Report",minor2:"Minor Project II Report",major1:"Major Project I Report",major2:"Major Project II Report",major_ppt:"Major Project Presentation"};
-const profileChapters={internship:"1. INTRODUCTION",minor1:"1. INTRODUCTION",minor2:"1. INTRODUCTION",major1:"1. INTRODUCTION",major2:"1. INTRODUCTION",major_ppt:"Introduction"};
-function pvValue(name,fallback){const el=document.querySelector('[name="'+name+'"]');return el&&el.value.trim()?el.value.trim():fallback;}
-function updateLivePreview(){
- const type=document.getElementById("document_type").value;
- document.getElementById("pvTitle").textContent=pvValue("project_title","PROJECT TITLE").toUpperCase();
- document.getElementById("pvType").textContent=profileNames[type]||"Academic Report";
- document.getElementById("pvStudent").textContent=pvValue("student_name","Student name")+" ("+pvValue("enrollment","Enrollment No.")+")";
- const guide=pvValue("guide","");
- document.getElementById("pvGuide").textContent=guide?"Under the guidance of: "+guide:"Under the guidance of: [Guide name]";
- document.getElementById("pvDepartment").textContent=pvValue("department","Department").toUpperCase();
- document.getElementById("pvYear").textContent="Guna, Madhya Pradesh · "+pvValue("year","2026");
- document.getElementById("pvChapter").textContent=profileChapters[type]||"1. INTRODUCTION";
- document.getElementById("pvOverview").textContent=pvValue("overview","[Your project overview will appear here.]");
- document.getElementById("pvWork").textContent=pvValue("work","[Your work details will appear here.]");
- document.getElementById("previewStatus").textContent=(type==="major_ppt"?"Presentation content preview":"Live preview · Cover and sample content")+" · updates while typing";
-}
-function toggleFormat(){updateLivePreview();}
-document.querySelectorAll("#document_type, form input, form textarea").forEach(el=>el.addEventListener("input",updateLivePreview));
-document.querySelectorAll("#document_type, form input, form textarea").forEach(el=>el.addEventListener("change",updateLivePreview));
-document.querySelector("form").addEventListener("reset",()=>setTimeout(updateLivePreview,0));
+const profileNames={internship:"Summer Internship Report",minor1:"Minor Project I Report",minor2:"Minor Project II Report",major1:"Major Project I Report",major2:"Major Project II Report",major_ppt:"Major Project Presentation",minor_ppt:"Minor Project PPT",internship_ppt:"Summer Internship Report PPT"};
+const profileChapters={internship:"1. INTRODUCTION",minor1:"1. INTRODUCTION",minor2:"1. INTRODUCTION",major1:"1. INTRODUCTION",major2:"1. INTRODUCTION",major_ppt:"Introduction",minor_ppt:"Project Overview",internship_ppt:"Internship Overview"};
+const presentationTypes=new Set(["major_ppt","minor_ppt","internship_ppt"]);
+function valueOf(name,fallback){const el=document.querySelector('#builderForm [name="'+name+'"]');return el&&el.value.trim()?el.value.trim():fallback;}
+function chooseDocument(type){document.getElementById("document_type").value=type;document.getElementById("dashboard").classList.remove("active");document.getElementById("workspace").classList.add("active");document.getElementById("workspaceTitle").textContent=profileNames[type];document.getElementById("workspaceSubtitle").textContent=presentationTypes.has(type)?"Enter your presentation content on the left; review the live preview on the right.":"Enter report details on the left; review the live page preview on the right.";document.getElementById("organizationField").classList.toggle("hidden",type!=="internship"&&type!=="internship_ppt");document.getElementById("pptPreviewNote").classList.toggle("hidden",!presentationTypes.has(type));document.querySelectorAll(".workspace-preview .preview-page").forEach(el=>{el.style.aspectRatio=presentationTypes.has(type)?"16 / 9":"210 / 297";el.style.minHeight=presentationTypes.has(type)?"360px":"650px";});updateLivePreview();window.scrollTo({top:0,behavior:"smooth"});}
+function updateLivePreview(){const type=document.getElementById("document_type").value;document.getElementById("pvTitle").textContent=valueOf("project_title","PROJECT TITLE").toUpperCase();document.getElementById("pvType").textContent=profileNames[type]||"Academic Report";document.getElementById("pvStudent").textContent=valueOf("student_name","Student name")+" ("+valueOf("enrollment","Enrollment No.")+")";const org=valueOf("organization","");document.getElementById("pvCompletedAt").innerHTML=org?"Completed At<br>"+escapeHtml(org):"Completed At<br>[Organization name]";const guide=valueOf("guide","");document.getElementById("pvGuide").textContent=guide?"Under the guidance of: "+guide:"Under the guidance of: [Guide name]";document.getElementById("pvDepartment").textContent=valueOf("department","Department").toUpperCase();document.getElementById("pvYear").textContent="Guna, Madhya Pradesh · "+valueOf("year","2026");document.getElementById("pvChapter").textContent=profileChapters[type]||"1. INTRODUCTION";document.getElementById("pvOverview").textContent=valueOf("overview","[Your project overview will appear here.]");document.getElementById("pvWork").textContent=valueOf("work","[Your work details will appear here.]");document.getElementById("previewStatus").textContent=(presentationTypes.has(type)?"Presentation preview · Sample content":"Report preview · Cover and sample content")+" · updates while typing";}
+function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
+document.querySelectorAll("#builderForm input,#builderForm textarea").forEach(el=>{el.addEventListener("input",updateLivePreview);el.addEventListener("change",updateLivePreview);});
+document.getElementById("builderForm").addEventListener("reset",()=>setTimeout(updateLivePreview,0));
+document.querySelectorAll(".choice[data-type]").forEach(btn=>btn.addEventListener("click",()=>chooseDocument(btn.dataset.type)));
+document.getElementById("backToDashboard").addEventListener("click",()=>{document.getElementById("workspace").classList.remove("active");document.getElementById("dashboard").classList.add("active");window.scrollTo({top:0,behavior:"smooth"});});
 updateLivePreview();
 </script></body></html>"""
+
+
+
 
 def set_page_field(paragraph):
     paragraph.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -358,8 +393,9 @@ def generate(document_type:str=Form(...),project_title:str=Form(...),student_nam
     data={k:v.strip() if isinstance(v,str) else v for k,v in locals().copy().items() if k not in {"document_type"}}
     data["document_type"]=document_type
     if not project_title.strip() or not student_name.strip(): return JSONResponse({"error":"Project title and student/presenter are required."},status_code=422)
-    if document_type=="major_ppt":
-        out=build_ppt(data); filename="Slow-Steady-Major-Project-Presentation.pptx"; media="application/vnd.openxmlformats-officedocument.presentationml.presentation"
+    if document_type in {"major_ppt","minor_ppt","internship_ppt"}:
+        data["presentation_type"]=document_type
+        out=build_ppt(data); filename=f"Slow-Steady-{document_type.replace('_','-')}.pptx"; media="application/vnd.openxmlformats-officedocument.presentationml.presentation"
     elif document_type in REPORT_PROFILES:
         out=build_report(data); filename=f'Slow-Steady-{document_type}-Report.docx'; media="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     else: return JSONResponse({"error":"Unknown document profile."},status_code=422)
