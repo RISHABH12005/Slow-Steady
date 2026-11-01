@@ -1,73 +1,111 @@
-# Slow-Steady — Academic Document Studio
+# Slow and Steady — Academic Document Studio
 
-Slow-Steady is an open-source document automation app for students. It generates editable JUET-focused DOCX report drafts and a text-only Major Project PPTX from reusable project details.
+*Submission for the [Hacktoberfest Open-Source AI Challenge — Week 3: Slow and Steady](https://dev.to/challenges/hacktoberfest-week3-2026-10-19).*
 
-## Current features
+## What I Built
 
-- Dark-mode responsive web interface.
-- Summer Internship, Minor I, Minor II, Major I and Major II report profiles.
-- Major Project presentation generator with 13 slides arranged around the supplied instructions' nine sections.
-- DOCX formatting: A4 page setup, 1-inch top/bottom/right margins, 1.5-inch left margin, Times New Roman 12 pt body, 1.15 line spacing, 16 pt Heading 1 and 14 pt Heading 2.
-- PPTX generation using editable text slides; no AI-generated images are inserted.
-- Basic validation endpoint, profile API and automated tests.
-- Render web service configured for automatic deployment from main.
+**Slow-Steady** is a web-based academic document studio designed to simplify the preparation of project reports and presentations.
 
-## Deployment
+Students often spend too much time formatting documents, organizing sections, and repeatedly checking layouts instead of focusing on their actual project work. Slow-Steady aims to make this process more structured and convenient by providing reusable document profiles, a focused editor, a preview, and editable file exports.
 
-Render service: https://slow-steady.onrender.com  
-Health endpoint: https://slow-steady.onrender.com/health  
-API docs: https://slow-steady.onrender.com/docs
+The project offers eight document options:
 
-A deployment being configured does not guarantee the latest build is healthy. Verify the health endpoint and generate sample files before relying on the site.
+1. Summer Internship Report
+2. Minor Project I Report
+3. Minor Project II Report
+4. Major Project I Report
+5. Major Project II Report
+6. Major Project Presentation
+7. Major & Minor Project PPT
+8. Summer Internship Report PPT
 
-## Run locally
+Users select a document type from the dashboard and enter their project details in a workspace designed around an editor and document preview.
 
-Requires Python 3.10 or later.
+The goal is simple: **less repetitive formatting, clearer document preparation, and more time for meaningful project work.**
 
-```powershell
-git clone https://github.com/RISHABH12005/Slow-Steady.git
-cd Slow-Steady
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python -m uvicorn app:app --reload
-```
+## Demo
 
-Open http://127.0.0.1:8000.
+**[Open the Slow-Steady application](https://slow-steady.onrender.com/)**
 
-Run tests with `python -m pytest -q`.
+The application is designed to bring document selection, editing, previewing, and editable DOCX/PPTX generation into one workflow.
 
-## API
+Useful deployment endpoints:
 
-- `GET /` — dark-mode web app
-- `GET /health` — health/status
-- `GET /api/profiles` — report and PPT section definitions
-- `POST /generate` — form-encoded fields; returns DOCX or PPTX according to `document_type`
-- `POST /api/validate` — basic missing-content checks
+- **Application:** [slow-steady.onrender.com](https://slow-steady.onrender.com/)
+- **Health check:** [ /health](https://slow-steady.onrender.com/health)
+- **API documentation:** [ /docs](https://slow-steady.onrender.com/docs)
 
-Accepted `document_type` values: `internship`, `minor1`, `minor2`, `major1`, `major2`, `major_ppt`.
+A live deployment can change or become temporarily unavailable. Check the health endpoint before relying on it for document generation.
 
-## JUET rules and accuracy notes
+## Code
 
-The supplied Summer Internship Report Guidelines specify A4 portrait, Times New Roman, 1-inch top/bottom/right margins, 1.5-inch left margin, 16 pt bold chapter names, 14 pt bold headings, 12 pt normal text and 1.15 line spacing. They specify centered bottom page numbers, lowercase Roman numerals before the table of contents, Arabic numbering starting at 1 after it, and at least 40 pages after the index.
+The project is open source and available on GitHub:
 
-The supplied Major Project PPT instructions specify Introduction (1 slide), Problem Statement (1), Literature Review (1–2), Work Plan (1), Individual Contribution (1), Work Done So Far (3–4), Work to be Done (1), Conclusion (1), and References (1 in IEEE format). This generator uses a 13-slide version: two literature review slides and four work-completed slides.
+**[RISHABH12005/Slow-Steady](https://github.com/RISHABH12005/Slow-Steady)**
 
-**The supplied PPT instructions prohibit AI-generated images in any part of the presentation.** This generator creates text-only slides. The Minor/Major report structures are starter profiles until checked against their exact official report guidelines; do not treat them as certified JUET formats.
+You can explore the implementation, review the document-generation workflow, report issues, and contribute improvements. The repository also includes automated tests and compliance checks through GitHub Actions.
 
-## Important limitations
+## How I Built It
 
-- The generated DOCX includes a table-of-contents placeholder; insert/update the automatic TOC in Word or LibreOffice.
-- Roman numeral front matter numbering and Arabic numbering after the contents still require final validation.
-- The internship guideline states at least 40 pages after the index; generated starter drafts do not automatically meet that length.
-- Validation checks are basic, not full semantic or layout compliance.
-- Inspect generated files, replace placeholders, verify sources, and check current departmental rules before submission.
-- The tool must not invent certificates, signatures, approvals, results, citations or individual contributions.
+I built Slow-Steady as a Python web application using FastAPI and document-generation libraries for editable Word documents and PowerPoint presentations.
 
-## Stack
+### Technology stack
 
-Python, FastAPI, python-docx, python-pptx, pytest. No AI API or Ollama is currently required to generate files; local AI assistance can be added later.
+- **FastAPI:** Handles the web application, API endpoints, and document-generation requests.
+- **python-docx:** Generates editable Word reports.
+- **python-pptx:** Generates editable PowerPoint presentations.
+- **HTML, CSS, and JavaScript:** Provide the dashboard, responsive editor layout, and live preview interactions.
+- **pytest and GitHub Actions:** Support automated testing and continuous integration.
+- **Render:** Hosts the deployed web application.
 
-## License
+### Workflow
 
-MIT.
+1. Select the required report or presentation profile.
+2. Enter project information and content in the editor.
+3. Review the generated structure in the preview.
+4. Generate an editable DOCX or PPTX file.
+5. Open the exported file and complete a final review before submission.
+
+The application uses reusable document structures and project details to reduce repeated setup work. Generated documents remain editable so students can refine the content and formatting.
+
+## Document Formatting and Academic Review
+
+Slow-Steady includes document profiles and formatting rules informed by the academic guidelines available for the project. For example, the internship report profile uses A4 page setup, Times New Roman body text, defined margins, heading sizes, and line spacing.
+
+The Major Project presentation generator creates editable, text-based slides based on the supplied presentation structure. It does not insert AI-generated images.
+
+Generated files are starting points, not a guarantee of academic compliance. Students should replace placeholders, verify references, check the latest departmental instructions, and review page numbering, table of contents, layout, and required sections before submission. Some formatting requirements may need final adjustment in Word or PowerPoint.
+
+## Why Open Innovation Matters
+
+Open innovation makes it possible for developers and students to inspect how a tool works, adapt it to their own needs, and contribute improvements rather than depending entirely on a closed service.
+
+For Slow-Steady, an open-source approach means contributors can improve report structures, add document profiles, strengthen formatting validation, and make the tool more useful for different academic requirements.
+
+It also makes development more transparent: users can inspect the source code and automated tests instead of treating the application as a black box.
+
+The project can grow through community contributions, shared feedback, and reusable solutions. A document profile created for one department can become a starting point for another institution, provided its specific academic rules are reviewed and incorporated.
+
+## My Agent Session
+
+I used AI assistance during development to refine the interface, improve the document-selection workflow, troubleshoot automated test failures, and make the preview easier to navigate.
+
+A public agent-session or DevRelay recording link is not included because I do not have a verified shareable session URL.
+
+## The Lazy Payoff
+
+The biggest payoff is reducing repetitive setup work.
+
+Instead of starting from a blank document every time, a student can select a document profile, enter project information, review the preview, and generate an editable file.
+
+I have not measured the time saved in a formal user test, so I will not claim a specific percentage or number of hours. The next step is to test the application with students, measure how long common document-preparation tasks take, and use their feedback to improve the workflow.
+
+**Slow-Steady is built around one idea: spend less time fighting document formatting and more time working on the project itself.**
+
+## Prize Categories
+
+Select partner or prize categories only when the project meets the official challenge eligibility requirements. No unverified partner integration or prize eligibility is claimed here.
+
+---
+
+*Thanks for checking out Slow-Steady. Feedback, bug reports, and contributions are welcome.*
