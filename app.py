@@ -132,6 +132,28 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 .top{margin-bottom:28px;padding-bottom:18px}.brand{font-size:21px}.brand span{color:var(--accent)}
 .kicker{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#a6bbdc;font-weight:800}
 .dashboard-intro{max-width:760px;margin:18px 0 28px}.dashboard-intro h1{font-size:clamp(36px,5vw,54px);letter-spacing:-.055em;line-height:1.05;margin:12px 0}.dashboard-intro p{color:var(--muted);font-size:15px;line-height:1.7}
+.top{position:relative}
+.tag-button{font:inherit;cursor:pointer;display:inline-flex;align-items:center;gap:9px;transition:background .2s,border-color .2s,color .2s,transform .2s}
+.tag-button:hover,.tag-button[aria-expanded="true"]{background:#17263a;border-color:#6688b8;color:#edf4ff;transform:translateY(-1px)}
+.tag-chevron{font-size:15px;transition:transform .2s}.tag-button[aria-expanded="true"] .tag-chevron{transform:rotate(180deg)}
+.workspace-info{margin:-12px 0 18px auto;max-width:420px;padding:14px 16px;border:1px solid #30435c;border-radius:13px;background:#111c2b;box-shadow:0 16px 35px #0005;animation:info-pop .2s ease-out}
+.workspace-info strong,.workspace-info span{display:block}.workspace-info strong{font-size:13px;color:#edf3fc;margin-bottom:5px}.workspace-info span{font-size:12px;line-height:1.6;color:var(--muted)}
+.intro-kicker{display:flex;align-items:center;gap:8px;color:#9bb9e7;font-size:10px;font-weight:800;letter-spacing:.17em;text-transform:uppercase;margin-bottom:12px}
+.intro-kicker-dot{width:7px;height:7px;border-radius:50%;background:#82b3ff;box-shadow:0 0 0 4px #82b3ff18,0 0 14px #82b3ff99}
+.dashboard-intro h1{max-width:850px;font-size:clamp(39px,5.5vw,64px);letter-spacing:-.065em;line-height:1.01;margin:0 0 15px;background:linear-gradient(100deg,#f4f7fc 0%,#dce8fb 58%,#91b7f1 100%);background-clip:text;-webkit-background-clip:text;color:transparent}
+.heading-mark{color:#91b7f1}
+.dashboard-intro p{max-width:760px;font-size:15px;line-height:1.75;margin:0}
+.intro-actions{display:flex;align-items:center;gap:18px;margin-top:22px}
+.primary-action{display:inline-flex;align-items:center;gap:13px;padding:11px 16px;border:1px solid #7397c9;border-radius:10px;background:linear-gradient(135deg,#28466c,#1b304b);color:#f4f8ff;font-weight:750;font-size:12px;cursor:pointer;box-shadow:0 7px 18px #0003;transition:transform .18s,box-shadow .18s,filter .18s}
+.primary-action:hover{transform:translateY(-2px);box-shadow:0 12px 24px #0005;filter:brightness(1.13)}.primary-action:active{transform:translateY(0) scale(.98)}
+.primary-action span{font-size:16px;transition:transform .18s}.primary-action:hover span{transform:translateY(3px)}
+.text-action{display:inline-flex;align-items:center;gap:8px;padding:9px 2px;border:0;background:transparent;color:#a9c6f1;font-size:12px;font-weight:700;cursor:pointer;transition:color .18s}
+.text-action:hover{color:#f1f6ff}.text-action-icon{font-size:17px;transition:transform .2s}.text-action[aria-expanded="true"] .text-action-icon{transform:rotate(45deg)}
+.how-it-works{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px;padding:12px;border:1px solid #293b54;border-radius:14px;background:linear-gradient(120deg,#101a29,#0d1520);animation:info-pop .22s ease-out}
+.how-it-works>div{display:grid;gap:5px;padding:10px;border-radius:9px;background:#ffffff04}.how-it-works>div>span{font-size:10px;font-weight:800;color:#8eb4ff;letter-spacing:.1em}.how-it-works strong{font-size:12px;color:#edf3fc}.how-it-works small{font-size:11px;line-height:1.5;color:#92a3bb}
+@keyframes info-pop{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:620px){.intro-actions{gap:13px;flex-wrap:wrap}.how-it-works{grid-template-columns:1fr}.dashboard-intro h1{font-size:clamp(36px,10vw,52px)}.workspace-info{margin:-10px 0 16px;max-width:none}}
+@media(prefers-reduced-motion:reduce){.workspace-info,.how-it-works{animation:none}.primary-action,.tag-button,.text-action,.tag-chevron{transition:none}}
 .screen{display:none}.screen.active{display:block}.choice-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .choice{display:flex;flex-direction:column;gap:14px;text-align:left;color:var(--text);padding:21px;min-height:190px;background:linear-gradient(145deg,#141f2e,#0e1520);border:1px solid #2a394d;border-radius:16px;transition:transform .18s,border-color .18s,background .18s;cursor:pointer}
 .choice:hover{transform:translateY(-3px);border-color:#6b8dbd;background:linear-gradient(145deg,#1b2b40,#101a29)}
@@ -183,9 +205,9 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 @media(max-width:1080px){.choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace-layout{grid-template-columns:minmax(0,1fr) minmax(300px,.85fr)}}
 @media(max-width:760px){.wrap{padding:16px 13px 40px}.choice-grid{grid-template-columns:1fr}.choice{min-height:0;padding:18px}.workspace-layout{grid-template-columns:1fr}.workspace-preview{position:static}.workspace-preview .preview-page{min-height:540px}.workspace-head{align-items:flex-start;flex-direction:column}.workspace-head h1{font-size:23px}.dashboard-intro h1{font-size:37px}.panel{padding:18px}.workspace-form{order:1}.workspace-preview{order:2}}
 </style></head><body><main class="wrap">
-<header class="top"><div class="brand">slow<span>·</span>steady <span style="color:#7d8ca2;font-size:12px;font-weight:500;letter-spacing:0">/ DOCUMENT STUDIO</span></div><div class="tag">JUET ACADEMIC WORKSPACE</div></header>
+<header class="top"><div class="brand">slow<span>·</span>steady <span style="color:#7d8ca2;font-size:12px;font-weight:500;letter-spacing:0">/ DOCUMENT STUDIO</span></div><button type="button" class="tag tag-button" id="workspaceInfoToggle" aria-expanded="false" aria-controls="workspaceInfo">JUET ACADEMIC WORKSPACE <span class="tag-chevron" aria-hidden="true">⌄</span></button></header><div class="workspace-info" id="workspaceInfo" hidden><strong>Academic document workspace</strong><span>Prepare editable reports and presentations, then review the exported file against your department's current requirements.</span></div>
 <section id="dashboard" class="screen active" aria-labelledby="dashTitle">
-<div class="dashboard-intro"><h1 id="dashTitle">What are you working on?</h1><p>Choose a document to get started. Your editor and live page preview will open together in the next step, so you can work and review the layout side by side.</p></div>
+<div class="dashboard-intro"><div class="intro-kicker"><span class="intro-kicker-dot"></span> YOUR ACADEMIC WORKSPACE</div><h1 id="dashTitle">What are you working on<span class="heading-mark">?</span></h1><p>Choose a document to get started. Your editor and live page preview will open together in the next step, so you can work and review the layout side by side.</p><div class="intro-actions"><button type="button" class="primary-action" id="browseTemplates">Explore documents <span aria-hidden="true">↓</span></button><button type="button" class="text-action" id="howItWorksToggle" aria-expanded="false" aria-controls="howItWorks">How it works <span class="text-action-icon" aria-hidden="true">＋</span></button></div><div class="how-it-works" id="howItWorks" hidden><div><span>01</span><strong>Choose a format</strong><small>Select the report or presentation you need.</small></div><div><span>02</span><strong>Add your content</strong><small>Enter your project details in the editor.</small></div><div><span>03</span><strong>Review and export</strong><small>Check the live preview and download your file.</small></div></div></div>
 <div class="choice-grid" id="choiceGrid">
 <button type="button" class="choice" data-type="internship" data-category="report" data-search="summer internship report organization work implementation results references"><span class="choice-icon">01</span><div><h2>Summer Internship Report</h2><p>Organization profile, work completed, implementation, results and references.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="minor1" data-category="report" data-search="minor project one report problem literature methodology plan"><span class="choice-icon">02</span><div><h2>Minor Project I Report</h2><p>Problem definition, literature review, methodology and project plan.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
@@ -280,6 +302,21 @@ document.getElementById("prevPreviewPage").addEventListener("click",()=>showPrev
 document.getElementById("nextPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage+1));
 document.querySelectorAll("#builderForm input,#builderForm textarea").forEach(el=>{el.addEventListener("input",updateLivePreview);el.addEventListener("change",updateLivePreview);});
 document.getElementById("builderForm").addEventListener("reset",()=>setTimeout(updateLivePreview,0));
+const workspaceInfoToggle=document.getElementById("workspaceInfoToggle");
+workspaceInfoToggle.addEventListener("click",()=>{
+ const panel=document.getElementById("workspaceInfo");
+ const opening=panel.hidden;panel.hidden=!opening;workspaceInfoToggle.setAttribute("aria-expanded",String(opening));
+});
+const howToggle=document.getElementById("howItWorksToggle");
+howToggle.addEventListener("click",()=>{
+ const panel=document.getElementById("howItWorks");
+ const opening=panel.hidden;panel.hidden=!opening;howToggle.setAttribute("aria-expanded",String(opening));
+ howToggle.querySelector(".text-action-icon").textContent=opening?"−":"＋";
+});
+document.getElementById("browseTemplates").addEventListener("click",()=>{
+ const firstCard=document.querySelector("#choiceGrid .choice");
+ if(firstCard){firstCard.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});firstCard.focus({preventScroll:true});}
+});
 document.querySelectorAll(".choice[data-type]").forEach((card,index)=>{
  card.style.setProperty("--card-order",index);
  card.addEventListener("click",()=>{
