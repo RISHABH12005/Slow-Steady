@@ -155,6 +155,31 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 .preview-pages{display:grid;gap:12px;max-height:none;overflow:visible;padding:0}.preview-page{width:100%;max-width:520px;min-height:0;aspect-ratio:210/297;height:auto;margin:0 auto;padding:10% 9%;background:#fff;color:#111;border:1px solid #d4dbe5;border-radius:2px;box-shadow:0 14px 35px #0007;overflow:hidden;position:relative;scroll-snap-align:start;font-family:"Times New Roman",serif;font-size:clamp(8px,.8vw,11px)}.preview-page .cover-title{text-align:center;text-transform:uppercase;font-weight:bold;font-size:1.45em;line-height:1.25;margin:10% 0 12%}.preview-page .cover-label{text-align:center;margin:5% 0}.preview-page .cover-name{text-align:center;font-size:1.15em;font-weight:bold;margin:6% 0}.preview-page .cover-university{text-align:center;font-weight:bold;margin-top:16%}.preview-page .preview-rule{border:0;border-top:1px solid #ddd;margin:8% 0}.preview-page .preview-chapter{font-size:1.2em;font-weight:bold;margin:7% 0 3%}.preview-page .preview-copy{font-size:1em;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}.preview-page .preview-page-number{position:absolute;bottom:5%;left:0;right:0;text-align:center;color:#555}.preview-page .page-running-title{font-size:.85em;color:#666;text-align:center;border-bottom:1px solid #ddd;padding-bottom:4%;margin-bottom:6%}.preview-page .page-content{max-height:75%;overflow:hidden;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}.preview-page .page-number-label{position:absolute;top:3%;right:6%;font:10px ui-sans-serif,system-ui;color:#8a94a3}.workspace-preview .preview-pages.presentation .preview-page{aspect-ratio:16/9;max-width:640px;padding:8%;font-family:Arial,sans-serif}.workspace-preview .preview-pages.presentation .cover-title{text-transform:none;font-size:1.8em;margin:12% 0}.preview-placeholder{font-family:inherit;color:var(--muted);font-size:13px;line-height:1.6;padding:14px;background:#0c1420;border:1px solid #27364a;border-radius:10px;margin-bottom:14px}
 .format-note{font-size:12px;color:#99a8bd;line-height:1.6;margin-top:12px}.field-help{font-size:11px;color:#8596ac;margin-top:6px;line-height:1.45}
 .action-bar{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;padding-top:18px;border-top:1px solid #273449}.hidden{display:none!important}
+
+/* Dashboard interaction polish */
+.screen.active{animation:screen-enter .38s cubic-bezier(.2,.75,.25,1) both}
+.choice-grid{perspective:1000px}
+.choice{isolation:isolate;will-change:transform;min-height:194px;animation:card-enter .48s cubic-bezier(.2,.75,.25,1) both;animation-delay:calc(var(--card-order,0)*45ms);box-shadow:0 8px 24px #00000012}
+.choice:before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(circle at 12% 0%,#8eb4ff17,transparent 48%);opacity:.65;pointer-events:none;transition:opacity .2s}
+.choice:hover{transform:translateY(-5px) scale(1.012);border-color:#789ac6;box-shadow:0 16px 34px #0005,0 0 0 1px #8eb4ff1a}
+.choice:hover:before{opacity:1}
+.choice:active{transform:translateY(-1px) scale(.995)}
+.choice.is-opening{transform:scale(.985);border-color:#a9c9ff;background:linear-gradient(145deg,#243b59,#111d2d);box-shadow:0 0 0 3px #8eb4ff30}
+.choice.is-opening .choice-icon{background:#38577f;transform:scale(1.06)}
+.choice-icon{position:relative;z-index:1;transition:transform .2s,background .2s,border-color .2s}
+.choice h2,.choice p,.choice-bottom{position:relative;z-index:1}
+.choice:focus-visible{outline:3px solid #a5c2ff;outline-offset:4px}
+.choice-bottom>span:last-child{display:inline-flex;align-items:center;gap:6px}
+.choice-bottom>span:last-child:after{content:"";width:0;height:1px;background:currentColor;transition:width .18s}
+.choice:hover .choice-bottom>span:last-child:after{width:12px}
+.top .tag{transition:border-color .2s,color .2s,background .2s}
+.top .tag:hover{border-color:#789ac6;color:#eaf2ff;background:#17263a}
+@keyframes screen-enter{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes card-enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@media(hover:none){.choice:hover{transform:none;box-shadow:0 8px 24px #00000012}.choice:active{transform:scale(.985)}}
+@media(prefers-reduced-motion:reduce){.screen.active,.choice{animation:none!important;transition:none!important}.choice:hover,.choice:active{transform:none}}
+@media(max-width:760px){.choice{min-height:0;padding:18px}.choice-grid{gap:11px}.choice:hover{transform:translateY(-2px)}}
+
 @media(max-width:1080px){.choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.workspace-layout{grid-template-columns:minmax(0,1fr) minmax(300px,.85fr)}}
 @media(max-width:760px){.wrap{padding:16px 13px 40px}.choice-grid{grid-template-columns:1fr}.choice{min-height:0;padding:18px}.workspace-layout{grid-template-columns:1fr}.workspace-preview{position:static}.workspace-preview .preview-page{min-height:540px}.workspace-head{align-items:flex-start;flex-direction:column}.workspace-head h1{font-size:23px}.dashboard-intro h1{font-size:37px}.panel{padding:18px}.workspace-form{order:1}.workspace-preview{order:2}}
 </style></head><body><main class="wrap">
@@ -201,11 +226,21 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 </aside></div></section>
 </main>
 <script>
-const profileNames={internship:"Summer Internship Report",minor1:"Minor Project I Report",minor2:"Minor Project II Report",major1:"Major Project I Report",major2:"Major Project II Report",major_ppt:"Major Project PPT",minor_ppt:"Major & Minor Project PPT",internship_ppt:"Summer Internship Report PPT"};
+const profileNames={internship:"Summer Internship Report",minor1:"Minor Project I Report",minor2:"Minor Project II Report",major1:"Major Project I Report",major2:"Major Project II Report",major_ppt:"Major Project Presentation",minor_ppt:"Major & Minor Project PPT",internship_ppt:"Summer Internship Report PPT"};
 const profileChapters={internship:"1. INTRODUCTION",minor1:"1. INTRODUCTION",minor2:"1. INTRODUCTION",major1:"1. INTRODUCTION",major2:"1. INTRODUCTION",major_ppt:"Introduction",minor_ppt:"Project Overview",internship_ppt:"Internship Overview"};
 const presentationTypes=new Set(["major_ppt","minor_ppt","internship_ppt"]);
 function valueOf(name,fallback){const el=document.querySelector('#builderForm [name="'+name+'"]');return el&&el.value.trim()?el.value.trim():fallback;}
-function chooseDocument(type){document.getElementById("document_type").value=type;document.getElementById("dashboard").classList.remove("active");document.getElementById("workspace").classList.add("active");document.getElementById("workspaceTitle").textContent=profileNames[type];document.getElementById("workspaceSubtitle").textContent=presentationTypes.has(type)?"Enter your presentation content on the left; review the live preview on the right.":"Enter report details on the left; review the live page preview on the right.";document.getElementById("organizationField").classList.toggle("hidden",type!=="internship"&&type!=="internship_ppt");document.getElementById("pptPreviewNote").classList.toggle("hidden",!presentationTypes.has(type));document.getElementById("livePreview").classList.toggle("presentation",presentationTypes.has(type));updateLivePreview();window.scrollTo({top:0,behavior:"smooth"});}
+function chooseDocument(type){
+ document.getElementById("document_type").value=type;
+ document.getElementById("dashboard").classList.remove("active");
+ document.getElementById("workspace").classList.add("active");
+ document.getElementById("workspaceTitle").textContent=profileNames[type];
+ document.getElementById("workspaceSubtitle").textContent=presentationTypes.has(type)?"Enter your presentation content on the left; review the live preview on the right.":"Enter report details on the left; review the live page preview on the right.";
+ document.getElementById("organizationField").classList.toggle("hidden",type!=="internship"&&type!=="internship_ppt");
+ document.getElementById("pptPreviewNote").classList.toggle("hidden",!presentationTypes.has(type));
+ document.getElementById("livePreview").classList.toggle("presentation",presentationTypes.has(type));
+ updateLivePreview();window.scrollTo({top:0,behavior:"smooth"});
+}
 function updateLivePreview(){
  const type=document.getElementById("document_type").value;
  const title=valueOf("project_title","PROJECT TITLE").toUpperCase();
@@ -226,33 +261,41 @@ function updateLivePreview(){
  document.getElementById("pvContribution").textContent=valueOf("contribution","[Your contribution and work plan will appear here.]");
  document.getElementById("pvConclusion").textContent=valueOf("conclusion","[Your conclusion will appear here.]");
  document.getElementById("pvReferences").textContent=valueOf("references","[Your references will appear here.]");
- document.getElementById("previewStatus").textContent=(presentationTypes.has(type)?"Presentation preview · slide ratio":"A4 document preview")+" · updates while typing";showPreviewPage(0);
+ document.getElementById("previewStatus").textContent=(presentationTypes.has(type)?"Presentation preview · slide ratio":"A4 document preview")+" · updates while typing";
+ showPreviewPage(0);
 }
 function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
-let currentPreviewPage=0;function showPreviewPage(index){const pages=[...document.querySelectorAll("#livePreview .preview-page")];if(!pages.length)return;currentPreviewPage=Math.max(0,Math.min(index,pages.length-1));pages.forEach((p,i)=>p.classList.toggle("active",i===currentPreviewPage));document.getElementById("previewPageIndicator").textContent="Page "+(currentPreviewPage+1)+" of "+pages.length;document.getElementById("prevPreviewPage").disabled=currentPreviewPage===0;document.getElementById("nextPreviewPage").disabled=currentPreviewPage===pages.length-1;document.getElementById("prevPreviewPage").style.opacity=currentPreviewPage===0?".45":"1";document.getElementById("nextPreviewPage").style.opacity=currentPreviewPage===pages.length-1?".45":"1";}document.getElementById("prevPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage-1));document.getElementById("nextPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage+1));document.querySelectorAll("#builderForm input,#builderForm textarea").forEach(el=>{el.addEventListener("input",updateLivePreview);el.addEventListener("change",updateLivePreview);});
-document.getElementById("builderForm").addEventListener("reset",()=>setTimeout(updateLivePreview,0));
-document.querySelectorAll(".choice[data-type]")];
- let shown=0;
- cards.forEach(card=>{
-  const matchesCategory=activeTemplateFilter==="all"||card.dataset.category===activeTemplateFilter;
-  const haystack=(card.innerText+" "+(card.dataset.search||"")).toLowerCase();
-  const matchesQuery=!query||haystack.includes(query);
-  const visible=matchesCategory&&matchesQuery;
-  card.hidden=!visible;
-  if(visible)shown++;
- });
- document.getElementById("templateCount").textContent="Showing "+shown+" of "+cards.length+" document types";
- document.getElementById("noTemplates").classList.toggle("hidden",shown!==0);
- document.querySelectorAll(".filter-chip").forEach(btn=>{const active=btn.dataset.filter===activeTemplateFilter;btn.classList.toggle("active",active);btn.setAttribute("aria-pressed",String(active));});
+let currentPreviewPage=0;
+function showPreviewPage(index){
+ const pages=[...document.querySelectorAll("#livePreview .preview-page")];if(!pages.length)return;
+ currentPreviewPage=Math.max(0,Math.min(index,pages.length-1));
+ pages.forEach((p,i)=>p.classList.toggle("active",i===currentPreviewPage));
+ document.getElementById("previewPageIndicator").textContent="Page "+(currentPreviewPage+1)+" of "+pages.length;
+ document.getElementById("prevPreviewPage").disabled=currentPreviewPage===0;
+ document.getElementById("nextPreviewPage").disabled=currentPreviewPage===pages.length-1;
+ document.getElementById("prevPreviewPage").style.opacity=currentPreviewPage===0?".45":"1";
+ document.getElementById("nextPreviewPage").style.opacity=currentPreviewPage===pages.length-1?".45":"1";
 }
-document.getElementById("templateSearch").addEventListener("input",filterTemplates);
-document.querySelectorAll(".filter-chip").forEach(btn=>btn.addEventListener("click",()=>{activeTemplateFilter=btn.dataset.filter;filterTemplates();}));
-function resetTemplateFilters(){document.getElementById("templateSearch").value="";activeTemplateFilter="all";filterTemplates();document.getElementById("templateSearch").focus();}
-document.getElementById("clearTemplateSearch").addEventListener("click",resetTemplateFilters);
-document.getElementById("resetTemplateFilters").addEventListener("click",resetTemplateFilters);
-document.addEventListener("keydown",event=>{if(event.key==="/"&&!event.ctrlKey&&!event.metaKey&&!event.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){event.preventDefault();document.getElementById("templateSearch").focus();}if(event.key==="Escape"&&document.activeElement.id==="templateSearch"){resetTemplateFilters();}});
-document.querySelectorAll(".choice[data-type]").forEach(btn=>btn.addEventListener("click",()=>chooseDocument(btn.dataset.type)));
-document.getElementById("backToDashboard").addEventListener("click",()=>{document.getElementById("workspace").classList.remove("active");document.getElementById("dashboard").classList.add("active");window.scrollTo({top:0,behavior:"smooth"});});
+document.getElementById("prevPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage-1));
+document.getElementById("nextPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage+1));
+document.querySelectorAll("#builderForm input,#builderForm textarea").forEach(el=>{el.addEventListener("input",updateLivePreview);el.addEventListener("change",updateLivePreview);});
+document.getElementById("builderForm").addEventListener("reset",()=>setTimeout(updateLivePreview,0));
+document.querySelectorAll(".choice[data-type]").forEach((card,index)=>{
+ card.style.setProperty("--card-order",index);
+ card.addEventListener("click",()=>{
+  if(card.classList.contains("is-opening"))return;
+  card.classList.add("is-opening");
+  card.setAttribute("aria-busy","true");
+  card.querySelector(".choice-bottom span:last-child").textContent="Opening…";
+  setTimeout(()=>chooseDocument(card.dataset.type),150);
+ });
+});
+document.getElementById("backToDashboard").addEventListener("click",()=>{
+ document.getElementById("workspace").classList.remove("active");
+ document.getElementById("dashboard").classList.add("active");
+ document.querySelectorAll(".choice.is-opening").forEach(card=>{card.classList.remove("is-opening");card.removeAttribute("aria-busy");card.querySelector(".choice-bottom span:last-child").textContent="Continue →";});
+ window.scrollTo({top:0,behavior:"smooth"});
+});
 updateLivePreview();
 </script></body></html>"""
 
