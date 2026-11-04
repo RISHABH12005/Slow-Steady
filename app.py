@@ -137,6 +137,18 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 .choice:hover{transform:translateY(-3px);border-color:#6b8dbd;background:linear-gradient(145deg,#1b2b40,#101a29)}
 .choice:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.choice-icon{display:grid;place-items:center;width:40px;height:40px;background:#243751;border:1px solid #3b5271;border-radius:12px;color:var(--accent);font-weight:800;font-size:16px}
 .choice h2{font-size:16px;margin:0;letter-spacing:-.025em}.choice p{font-size:12px;line-height:1.55;color:var(--muted);margin:7px 0 0}.choice-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:auto;color:#a8c3f3;font-size:12px;font-weight:700}.choice-type{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:#8e9fb7}
+.template-tools{display:grid;grid-template-columns:minmax(240px,1fr) auto;gap:12px 18px;align-items:center;margin:0 0 18px}
+.template-search{display:flex;align-items:center;gap:10px;min-height:48px;padding:0 14px;border:1px solid #2b3b51;border-radius:12px;background:#0d1521;color:#91a8c8;transition:border-color .18s,box-shadow .18s}
+.template-search:focus-within{border-color:#7397c9;box-shadow:0 0 0 3px #83aaff1c}
+.template-search>span{font-size:22px;line-height:1}.template-search input{flex:1;min-width:0;border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;padding:12px 0!important;color:#eef3fb;font-size:13px}.template-search input::-webkit-search-cancel-button{cursor:pointer}.template-search kbd{font-size:11px;border:1px solid #34445b;border-radius:5px;padding:2px 6px;color:#879ab5}
+.template-filters{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+.filter-chip{border:1px solid #2b3b51;border-radius:999px;background:#0e1622;color:#aebbd0;padding:9px 12px;font-size:12px;cursor:pointer;transition:all .16s}
+.filter-chip span{margin-left:5px;color:#8093af;font-size:10px}.filter-chip:hover{border-color:#6686b1;color:#edf4ff}.filter-chip.active{background:#1c2d44;border-color:#6487b7;color:#eaf2ff}.filter-chip.active span{color:#bcd2f6}
+.template-meta{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;color:#7f91aa;font-size:11px;margin-top:-3px}.clear-search{border:0;background:none;color:#a9c5f5;font-size:11px;cursor:pointer;padding:5px}.clear-search:hover{text-decoration:underline}
+.choice{position:relative;overflow:hidden}.choice:after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,#a9c9ff0d 50%,transparent 80%);transform:translateX(-130%);transition:transform .55s;pointer-events:none}.choice:hover:after{transform:translateX(130%)}.choice[hidden]{display:none}.choice.selected{border-color:#8eb4ff;box-shadow:0 0 0 3px #8eb4ff20}
+.choice .choice-bottom>span:last-child{transition:transform .18s}.choice:hover .choice-bottom>span:last-child{transform:translateX(3px)}
+.no-templates{display:flex;flex-direction:column;align-items:center;gap:9px;padding:42px 18px;border:1px dashed #34465e;border-radius:16px;color:#aab8cb;text-align:center}.no-templates strong{color:#eaf1fb;font-size:15px}.no-templates span{font-size:12px}.no-templates button{margin-top:5px}
+@media(max-width:900px){.template-tools{grid-template-columns:1fr}.template-filters{justify-content:flex-start}.template-meta{grid-column:auto}}
 .workspace-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.workspace-head h1{font-size:26px;letter-spacing:-.04em;margin:5px 0}.back-btn{background:#111b29;color:#d6e4f9;border:1px solid #2d4059;border-radius:10px;padding:11px 14px;font-weight:700}.back-btn:hover{background:#19283b}
 .workspace-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,.9fr);gap:18px;align-items:start}
 .workspace-form{max-height:none}.form-scroll{display:block}.workspace-preview{position:sticky;top:12px}.preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.preview-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:12px 0 8px}.preview-controls .secondary{padding:8px 11px;font-size:12px}.preview-controls span{font-size:12px;color:#c4d0e0;font-variant-numeric:tabular-nums}.preview-hint{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 12px}.preview-pages .preview-page{display:none}.preview-pages .preview-page.active{display:block}.preview-page{max-width:520px;min-height:0;height:auto;aspect-ratio:210/297;margin:0 auto;padding:10% 9%}.workspace-preview .preview-pages.presentation .preview-page{aspect-ratio:16/9;max-width:640px;padding:8%}.live-dot{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:#8ee0bc}.live-dot:before{content:"";width:7px;height:7px;background:#69d7a8;border-radius:50%;box-shadow:0 0 0 3px #69d7a81c}
@@ -149,17 +161,27 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 <header class="top"><div class="brand">slow<span>·</span>steady <span style="color:#7d8ca2;font-size:12px;font-weight:500;letter-spacing:0">/ DOCUMENT STUDIO</span></div><div class="tag">JUET ACADEMIC WORKSPACE</div></header>
 <section id="dashboard" class="screen active" aria-labelledby="dashTitle">
 <div class="dashboard-intro"><div class="kicker">Workspace / 01</div><h1 id="dashTitle">What are you working on?</h1><p>Choose a document to get started. Your editor and live page preview will open together in the next step, so you can work and review the layout side by side.</p></div>
-<div class="choice-grid">
-<button type="button" class="choice" data-type="internship"><span class="choice-icon">01</span><div><h2>Summer Internship Report</h2><p>Organization profile, work completed, implementation, results and references.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
-<button type="button" class="choice" data-type="minor1"><span class="choice-icon">02</span><div><h2>Minor Project I Report</h2><p>Problem definition, literature review, methodology and project plan.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
-<button type="button" class="choice" data-type="minor2"><span class="choice-icon">03</span><div><h2>Minor Project II Report</h2><p>Project implementation or research progress, analysis and results.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
-<button type="button" class="choice" data-type="major1"><span class="choice-icon">04</span><div><h2>Major Project I Report</h2><p>Requirements, methodology, work completed and the next milestones.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
-<button type="button" class="choice" data-type="major2"><span class="choice-icon">05</span><div><h2>Major Project II Report</h2><p>Final design, implementation, testing, evaluation and conclusions.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
-<div class="sr-only-profile-labels" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"><span>Major Project Presentation</span></div>
-<button type="button" class="choice" data-type="major_ppt"><span class="choice-icon">06</span><div><h2>Major Project Presentation</h2><p>Required major-project review sections, individual contribution, progress evidence and IEEE references.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
-<button type="button" class="choice" data-type="minor_ppt"><span class="choice-icon">07</span><div><h2>Major & Minor Project PPT</h2><p>Project problem, approach, progress, key evidence and next steps.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
-<button type="button" class="choice" data-type="internship_ppt"><span class="choice-icon">08</span><div><h2>Summer Internship Report PPT</h2><p>Internship overview, organization, work completed, outcomes and learning.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+<div class="template-tools" aria-label="Find a document">
+<div class="template-search"><span aria-hidden="true">⌕</span><input id="templateSearch" type="search" placeholder="Search reports and presentations..." autocomplete="off" aria-label="Search document types"><kbd>/</kbd></div>
+<div class="template-filters" role="group" aria-label="Filter document types">
+<button type="button" class="filter-chip active" data-filter="all" aria-pressed="true">All documents <span>8</span></button>
+<button type="button" class="filter-chip" data-filter="report" aria-pressed="false">Reports <span>5</span></button>
+<button type="button" class="filter-chip" data-filter="presentation" aria-pressed="false">Presentations <span>3</span></button>
 </div>
+<div class="template-meta"><span id="templateCount" aria-live="polite">Showing 8 document types</span><button type="button" id="clearTemplateSearch" class="clear-search">Clear search</button></div>
+</div>
+<div class="choice-grid" id="choiceGrid">
+<button type="button" class="choice" data-type="internship" data-category="report" data-search="summer internship report organization work implementation results references"><span class="choice-icon">01</span><div><h2>Summer Internship Report</h2><p>Organization profile, work completed, implementation, results and references.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="minor1" data-category="report" data-search="minor project one report problem literature methodology plan"><span class="choice-icon">02</span><div><h2>Minor Project I Report</h2><p>Problem definition, literature review, methodology and project plan.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="minor2" data-category="report" data-search="minor project two report implementation research analysis results"><span class="choice-icon">03</span><div><h2>Minor Project II Report</h2><p>Project implementation or research progress, analysis and results.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="major1" data-category="report" data-search="major project one report requirements methodology milestones"><span class="choice-icon">04</span><div><h2>Major Project I Report</h2><p>Requirements, methodology, work completed and the next milestones.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="major2" data-category="report" data-search="major project two report final design implementation testing evaluation"><span class="choice-icon">05</span><div><h2>Major Project II Report</h2><p>Final design, implementation, testing, evaluation and conclusions.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
+<div class="sr-only-profile-labels" aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)"><span>Major Project Presentation</span></div>
+<button type="button" class="choice" data-type="major_ppt" data-category="presentation" data-search="major project presentation ppt slides ieee references"><span class="choice-icon">06</span><div><h2>Major Project Presentation</h2><p>Required major-project review sections, individual contribution, progress evidence and IEEE references.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="minor_ppt" data-category="presentation" data-search="major minor project ppt presentation slides"><span class="choice-icon">07</span><div><h2>Major & Minor Project PPT</h2><p>Project problem, approach, progress, key evidence and next steps.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+<button type="button" class="choice" data-type="internship_ppt" data-category="presentation" data-search="summer internship report presentation ppt slides"><span class="choice-icon">08</span><div><h2>Summer Internship Report PPT</h2><p>Internship overview, organization, work completed, outcomes and learning.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
+</div>
+<div id="noTemplates" class="no-templates hidden"><strong>No matching document types</strong><span>Try another search term or clear the filters.</span><button type="button" class="secondary" id="resetTemplateFilters">Show all documents</button></div>
 <p class="muted" style="margin-top:22px">All exported files are editable drafts. Verify your department's current format and review the final file before submission.</p>
 </section>
 <section id="workspace" class="screen" aria-labelledby="workspaceTitle">
@@ -220,9 +242,32 @@ function updateLivePreview(){
 function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
 let currentPreviewPage=0;function showPreviewPage(index){const pages=[...document.querySelectorAll("#livePreview .preview-page")];if(!pages.length)return;currentPreviewPage=Math.max(0,Math.min(index,pages.length-1));pages.forEach((p,i)=>p.classList.toggle("active",i===currentPreviewPage));document.getElementById("previewPageIndicator").textContent="Page "+(currentPreviewPage+1)+" of "+pages.length;document.getElementById("prevPreviewPage").disabled=currentPreviewPage===0;document.getElementById("nextPreviewPage").disabled=currentPreviewPage===pages.length-1;document.getElementById("prevPreviewPage").style.opacity=currentPreviewPage===0?".45":"1";document.getElementById("nextPreviewPage").style.opacity=currentPreviewPage===pages.length-1?".45":"1";}document.getElementById("prevPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage-1));document.getElementById("nextPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage+1));document.querySelectorAll("#builderForm input,#builderForm textarea").forEach(el=>{el.addEventListener("input",updateLivePreview);el.addEventListener("change",updateLivePreview);});
 document.getElementById("builderForm").addEventListener("reset",()=>setTimeout(updateLivePreview,0));
+let activeTemplateFilter="all";
+function filterTemplates(){
+ const query=document.getElementById("templateSearch").value.trim().toLowerCase();
+ const cards=[...document.querySelectorAll(".choice[data-type]")];
+ let shown=0;
+ cards.forEach(card=>{
+  const matchesCategory=activeTemplateFilter==="all"||card.dataset.category===activeTemplateFilter;
+  const haystack=(card.innerText+" "+(card.dataset.search||"")).toLowerCase();
+  const matchesQuery=!query||haystack.includes(query);
+  const visible=matchesCategory&&matchesQuery;
+  card.hidden=!visible;
+  if(visible)shown++;
+ });
+ document.getElementById("templateCount").textContent="Showing "+shown+" of "+cards.length+" document types";
+ document.getElementById("noTemplates").classList.toggle("hidden",shown!==0);
+ document.querySelectorAll(".filter-chip").forEach(btn=>{const active=btn.dataset.filter===activeTemplateFilter;btn.classList.toggle("active",active);btn.setAttribute("aria-pressed",String(active));});
+}
+document.getElementById("templateSearch").addEventListener("input",filterTemplates);
+document.querySelectorAll(".filter-chip").forEach(btn=>btn.addEventListener("click",()=>{activeTemplateFilter=btn.dataset.filter;filterTemplates();}));
+function resetTemplateFilters(){document.getElementById("templateSearch").value="";activeTemplateFilter="all";filterTemplates();document.getElementById("templateSearch").focus();}
+document.getElementById("clearTemplateSearch").addEventListener("click",resetTemplateFilters);
+document.getElementById("resetTemplateFilters").addEventListener("click",resetTemplateFilters);
+document.addEventListener("keydown",event=>{if(event.key==="/"&&!event.ctrlKey&&!event.metaKey&&!event.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){event.preventDefault();document.getElementById("templateSearch").focus();}if(event.key==="Escape"&&document.activeElement.id==="templateSearch"){resetTemplateFilters();}});
 document.querySelectorAll(".choice[data-type]").forEach(btn=>btn.addEventListener("click",()=>chooseDocument(btn.dataset.type)));
 document.getElementById("backToDashboard").addEventListener("click",()=>{document.getElementById("workspace").classList.remove("active");document.getElementById("dashboard").classList.add("active");window.scrollTo({top:0,behavior:"smooth"});});
-updateLivePreview();
+updateLivePreview();filterTemplates();
 </script></body></html>"""
 
 
