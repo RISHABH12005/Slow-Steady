@@ -160,16 +160,7 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 </style></head><body><main class="wrap">
 <header class="top"><div class="brand">slow<span>·</span>steady <span style="color:#7d8ca2;font-size:12px;font-weight:500;letter-spacing:0">/ DOCUMENT STUDIO</span></div><div class="tag">JUET ACADEMIC WORKSPACE</div></header>
 <section id="dashboard" class="screen active" aria-labelledby="dashTitle">
-<div class="dashboard-intro"><div class="kicker">Workspace / 01</div><h1 id="dashTitle">What are you working on?</h1><p>Choose a document to get started. Your editor and live page preview will open together in the next step, so you can work and review the layout side by side.</p></div>
-<div class="template-tools" aria-label="Find a document">
-<div class="template-search"><span aria-hidden="true">⌕</span><input id="templateSearch" type="search" placeholder="Search reports and presentations..." autocomplete="off" aria-label="Search document types"><kbd>/</kbd></div>
-<div class="template-filters" role="group" aria-label="Filter document types">
-<button type="button" class="filter-chip active" data-filter="all" aria-pressed="true">All documents <span>8</span></button>
-<button type="button" class="filter-chip" data-filter="report" aria-pressed="false">Reports <span>5</span></button>
-<button type="button" class="filter-chip" data-filter="presentation" aria-pressed="false">Presentations <span>3</span></button>
-</div>
-<div class="template-meta"><span id="templateCount" aria-live="polite">Showing 8 document types</span><button type="button" id="clearTemplateSearch" class="clear-search">Clear search</button></div>
-</div>
+<div class="dashboard-intro"><h1 id="dashTitle">What are you working on?</h1><p>Choose a document to get started. Your editor and live page preview will open together in the next step, so you can work and review the layout side by side.</p></div>
 <div class="choice-grid" id="choiceGrid">
 <button type="button" class="choice" data-type="internship" data-category="report" data-search="summer internship report organization work implementation results references"><span class="choice-icon">01</span><div><h2>Summer Internship Report</h2><p>Organization profile, work completed, implementation, results and references.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="minor1" data-category="report" data-search="minor project one report problem literature methodology plan"><span class="choice-icon">02</span><div><h2>Minor Project I Report</h2><p>Problem definition, literature review, methodology and project plan.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
@@ -181,8 +172,6 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 <button type="button" class="choice" data-type="minor_ppt" data-category="presentation" data-search="major minor project ppt presentation slides"><span class="choice-icon">07</span><div><h2>Major & Minor Project PPT</h2><p>Project problem, approach, progress, key evidence and next steps.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="internship_ppt" data-category="presentation" data-search="summer internship report presentation ppt slides"><span class="choice-icon">08</span><div><h2>Summer Internship Report PPT</h2><p>Internship overview, organization, work completed, outcomes and learning.</p></div><div class="choice-bottom"><span class="choice-type">Presentation · PPTX</span><span>Continue →</span></div></button>
 </div>
-<div id="noTemplates" class="no-templates hidden"><strong>No matching document types</strong><span>Try another search term or clear the filters.</span><button type="button" class="secondary" id="resetTemplateFilters">Show all documents</button></div>
-<p class="muted" style="margin-top:22px">All exported files are editable drafts. Verify your department's current format and review the final file before submission.</p>
 </section>
 <section id="workspace" class="screen" aria-labelledby="workspaceTitle">
 <div class="workspace-head"><div><div class="kicker">Workspace / 02</div><h1 id="workspaceTitle">Build your document</h1><div id="workspaceSubtitle" class="muted">Enter project details on the left. The preview updates as you type.</div></div><button type="button" id="backToDashboard" class="back-btn">← All document types</button></div>
@@ -210,7 +199,7 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 <div class="preview-pages" id="livePreview" aria-live="polite"><article class="preview-page" data-page="1"><div class="cover-title" id="pvTitle">PROJECT TITLE</div><div class="cover-label" id="pvType">Summer Internship Report</div><div class="cover-label" id="pvCompletedAt">Completed At<br>Organization name</div><div class="cover-label">Submitted by</div><div class="cover-name" id="pvStudent">Student name (Enrollment No.)</div><div class="cover-label" id="pvGuide">Under the guidance of: Guide name</div><div class="cover-university">JAYPEE UNIVERSITY OF ENGINEERING AND TECHNOLOGY</div><div class="cover-label" id="pvDepartment">COMPUTER SCIENCE AND ENGINEERING</div><div class="cover-label" id="pvYear">Guna, Madhya Pradesh · 2026</div><div class="preview-page-number">i</div></article><article class="preview-page" data-page="2"><div class="page-number-label">PAGE 2</div><div class="page-running-title" id="pvRunningTitle">PROJECT TITLE</div><div class="preview-chapter" id="pvChapter">1. INTRODUCTION</div><div class="preview-copy" id="pvOverview">[Your project overview will appear here.]</div><div class="preview-page-number">2</div></article><article class="preview-page" data-page="3"><div class="page-number-label">PAGE 3</div><div class="page-running-title">PROJECT DETAILS</div><div class="preview-chapter">Work / Methodology</div><div class="preview-copy" id="pvWork">[Your work details will appear here.]</div><div class="preview-page-number">3</div></article><article class="preview-page" data-page="4"><div class="page-number-label">PAGE 4</div><div class="page-running-title">PROJECT DETAILS</div><div class="preview-chapter">Results and Analysis</div><div class="preview-copy" id="pvResults">[Your results and analysis will appear here.]</div><div class="preview-page-number">4</div></article><article class="preview-page" data-page="5"><div class="page-number-label">PAGE 5</div><div class="page-running-title">PROJECT DETAILS</div><div class="preview-chapter">Individual Contribution / Work Plan</div><div class="preview-copy" id="pvContribution">[Your contribution and work plan will appear here.]</div><div class="preview-chapter">Conclusion / Future Work</div><div class="preview-copy" id="pvConclusion">[Your conclusion will appear here.]</div><div class="preview-chapter">References</div><div class="preview-copy" id="pvReferences">[Your references will appear here.]</div><div class="preview-page-number">5</div></article></div>
 <div class="preview-status" id="previewStatus">Live preview · Cover and sample content</div>
 </aside></div></section>
-<footer>Slow-Steady · Academic document workspace · Exported files should be reviewed before submission.</footer></main>
+</main>
 <script>
 const profileNames={internship:"Summer Internship Report",minor1:"Minor Project I Report",minor2:"Minor Project II Report",major1:"Major Project I Report",major2:"Major Project II Report",major_ppt:"Major Project PPT",minor_ppt:"Major & Minor Project PPT",internship_ppt:"Summer Internship Report PPT"};
 const profileChapters={internship:"1. INTRODUCTION",minor1:"1. INTRODUCTION",minor2:"1. INTRODUCTION",major1:"1. INTRODUCTION",major2:"1. INTRODUCTION",major_ppt:"Introduction",minor_ppt:"Project Overview",internship_ppt:"Internship Overview"};
@@ -242,10 +231,7 @@ function updateLivePreview(){
 function escapeHtml(s){return s.replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#39;");}
 let currentPreviewPage=0;function showPreviewPage(index){const pages=[...document.querySelectorAll("#livePreview .preview-page")];if(!pages.length)return;currentPreviewPage=Math.max(0,Math.min(index,pages.length-1));pages.forEach((p,i)=>p.classList.toggle("active",i===currentPreviewPage));document.getElementById("previewPageIndicator").textContent="Page "+(currentPreviewPage+1)+" of "+pages.length;document.getElementById("prevPreviewPage").disabled=currentPreviewPage===0;document.getElementById("nextPreviewPage").disabled=currentPreviewPage===pages.length-1;document.getElementById("prevPreviewPage").style.opacity=currentPreviewPage===0?".45":"1";document.getElementById("nextPreviewPage").style.opacity=currentPreviewPage===pages.length-1?".45":"1";}document.getElementById("prevPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage-1));document.getElementById("nextPreviewPage").addEventListener("click",()=>showPreviewPage(currentPreviewPage+1));document.querySelectorAll("#builderForm input,#builderForm textarea").forEach(el=>{el.addEventListener("input",updateLivePreview);el.addEventListener("change",updateLivePreview);});
 document.getElementById("builderForm").addEventListener("reset",()=>setTimeout(updateLivePreview,0));
-let activeTemplateFilter="all";
-function filterTemplates(){
- const query=document.getElementById("templateSearch").value.trim().toLowerCase();
- const cards=[...document.querySelectorAll(".choice[data-type]")];
+document.querySelectorAll(".choice[data-type]")];
  let shown=0;
  cards.forEach(card=>{
   const matchesCategory=activeTemplateFilter==="all"||card.dataset.category===activeTemplateFilter;
@@ -267,7 +253,7 @@ document.getElementById("resetTemplateFilters").addEventListener("click",resetTe
 document.addEventListener("keydown",event=>{if(event.key==="/"&&!event.ctrlKey&&!event.metaKey&&!event.altKey&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){event.preventDefault();document.getElementById("templateSearch").focus();}if(event.key==="Escape"&&document.activeElement.id==="templateSearch"){resetTemplateFilters();}});
 document.querySelectorAll(".choice[data-type]").forEach(btn=>btn.addEventListener("click",()=>chooseDocument(btn.dataset.type)));
 document.getElementById("backToDashboard").addEventListener("click",()=>{document.getElementById("workspace").classList.remove("active");document.getElementById("dashboard").classList.add("active");window.scrollTo({top:0,behavior:"smooth"});});
-updateLivePreview();filterTemplates();
+updateLivePreview();
 </script></body></html>"""
 
 
