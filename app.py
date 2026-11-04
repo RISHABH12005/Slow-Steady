@@ -199,6 +199,38 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 .choice.is-opening{background:linear-gradient(135deg,var(--card-a),var(--card-b))!important;border-color:#fff!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--card-edge) 65%,transparent)!important}
 .choice.is-opening .choice-icon{background:color-mix(in srgb,var(--card-a) 60%,white 20%)!important}
 
+
+/* Refined split hero */
+.dashboard-hero{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(285px,.75fr);gap:clamp(24px,5vw,66px);align-items:center;overflow:hidden;margin:24px 0 30px;padding:clamp(24px,4vw,42px);border:1px solid #29394f;border-radius:22px;background:linear-gradient(115deg,#111d2c 0%,#101927 58%,#121d2c 100%);box-shadow:0 18px 50px #0003}
+.dashboard-hero:before{content:"";position:absolute;z-index:-1;width:430px;height:430px;right:12%;top:-310px;border-radius:50%;background:#4d76bb;filter:blur(110px);opacity:.16;pointer-events:none}
+.hero-copy{min-width:0}
+.intro-kicker{display:flex;align-items:center;gap:9px;margin-bottom:18px;color:#9fb8dc;font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.intro-kicker-dot{width:7px;height:7px;border-radius:50%;background:#8eb4ff;box-shadow:0 0 0 4px #8eb4ff1b}
+.dashboard-hero h1{max-width:650px;margin:0 0 17px;color:#f4f7fc;font-size:clamp(34px,4.2vw,54px);font-weight:800;letter-spacing:-.055em;line-height:1.06}
+.dashboard-hero h1 span{color:#a9c8fa}
+.dashboard-hero .hero-copy>p{max-width:610px;margin:0;color:#aab8ca;font-size:14px;line-height:1.8}
+.intro-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap;margin-top:25px}
+.primary-action{padding:12px 17px;border:1px solid #7196c8;border-radius:10px;background:#315581;color:#fff;font-size:12px;font-weight:750;box-shadow:0 7px 18px #0003;transition:background .18s,transform .18s,box-shadow .18s}
+.primary-action:hover{transform:translateY(-2px);background:#3c689c;box-shadow:0 11px 24px #0004}
+.primary-action span{margin-left:9px;font-size:15px}
+.hero-hint{display:inline-flex;align-items:center;gap:9px;color:#8496ad;font-size:11px}
+.hero-hint i{width:3px;height:3px;border-radius:50%;background:#62758e}
+.hero-workflow{padding:19px 19px 15px;border:1px solid #34465e;border-radius:16px;background:linear-gradient(145deg,#17263a,#111c2b);box-shadow:inset 0 1px #ffffff0a}
+.workflow-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px;color:#a8bbd6;font-size:9px;font-weight:800;letter-spacing:.13em}
+.workflow-live{display:inline-flex;align-items:center;gap:6px;color:#8fcfb5;font-size:8px;letter-spacing:.08em}
+.workflow-live i{width:6px;height:6px;border-radius:50%;background:#69d4a5;box-shadow:0 0 9px #69d4a577}
+.workflow-step{display:flex;align-items:center;gap:12px}
+.workflow-number{display:grid;place-items:center;flex:0 0 34px;height:34px;border:1px solid #405b7d;border-radius:10px;background:#233b59;color:#c5d9fa;font-size:11px;font-weight:800}
+.workflow-step strong,.workflow-step small{display:block}
+.workflow-step strong{margin-bottom:4px;color:#edf3fc;font-size:12px}
+.workflow-step small{color:#91a3bb;font-size:10px;line-height:1.5}
+.workflow-connector{height:14px;width:1px;margin:3px 0 3px 17px;background:linear-gradient(#58779e,#34475f)}
+.workflow-footer{display:flex;align-items:center;gap:7px;margin-top:18px;padding-top:13px;border-top:1px solid #2a3a50;color:#91a3bb;font-size:10px}
+.workflow-file-icon{display:grid;place-items:center;width:25px;height:25px;border:1px solid #416b9b;border-radius:6px;background:#203b5c;color:#b9d6ff;font-size:8px;font-weight:800}
+.workflow-file-icon.ppt{border-color:#82613d;background:#443320;color:#ffdfb2}
+@media(max-width:760px){.dashboard-hero{grid-template-columns:1fr;gap:25px;padding:23px}.hero-workflow{max-width:none}.dashboard-hero h1{font-size:clamp(34px,8vw,46px)}}
+@media(prefers-reduced-motion:reduce){.primary-action{transition:none}}
+
 /* Dashboard interaction polish */
 .screen.active{animation:screen-enter .38s cubic-bezier(.2,.75,.25,1) both}
 .choice-grid{perspective:1000px}
@@ -228,7 +260,23 @@ body{background:#080c13;font-size:14px}.wrap{max-width:1380px;padding:24px 30px 
 </style></head><body><main class="wrap">
 <header class="top"><div class="brand">slow<span>·</span>steady <span style="color:#7d8ca2;font-size:12px;font-weight:500;letter-spacing:0">/ DOCUMENT STUDIO</span></div><button type="button" class="tag tag-button" id="workspaceInfoToggle" aria-expanded="false" aria-controls="workspaceInfo">JUET ACADEMIC WORKSPACE <span class="tag-chevron" aria-hidden="true">⌄</span></button></header><div class="workspace-info" id="workspaceInfo" hidden><strong>Academic document workspace</strong><span>Prepare editable reports and presentations, then review the exported file against your department's current requirements.</span></div>
 <section id="dashboard" class="screen active" aria-labelledby="dashTitle">
-<div class="dashboard-intro"><div class="intro-kicker"><span class="intro-kicker-dot"></span> YOUR ACADEMIC WORKSPACE</div><h1 id="dashTitle">What are you working on<span class="heading-mark">?</span></h1><p>Choose a document to get started. Your editor and live page preview will open together in the next step, so you can work and review the layout side by side.</p><div class="intro-actions"><button type="button" class="primary-action" id="browseTemplates">Explore documents <span aria-hidden="true">↓</span></button><button type="button" class="text-action" id="howItWorksToggle" aria-expanded="false" aria-controls="howItWorks">How it works <span class="text-action-icon" aria-hidden="true">＋</span></button></div><div class="how-it-works" id="howItWorks" hidden><div><span>01</span><strong>Choose a format</strong><small>Select the report or presentation you need.</small></div><div><span>02</span><strong>Add your content</strong><small>Enter your project details in the editor.</small></div><div><span>03</span><strong>Review and export</strong><small>Check the live preview and download your file.</small></div></div></div>
+<section class="dashboard-hero" aria-labelledby="dashTitle">
+<div class="hero-copy">
+<div class="intro-kicker"><span class="intro-kicker-dot"></span> JUET · ACADEMIC DOCUMENT STUDIO</div>
+<h1 id="dashTitle">Your project deserves a <span>better presentation.</span></h1>
+<p>Build your academic reports and presentations in one focused workspace. Choose a format, add your content, and review the live preview before exporting.</p>
+<div class="intro-actions"><button type="button" class="primary-action" id="browseTemplates">Choose a document <span aria-hidden="true">→</span></button><span class="hero-hint">8 templates <i></i> DOCX &amp; PPTX</span></div>
+</div>
+<aside class="hero-workflow" aria-label="How the workspace works">
+<div class="workflow-heading"><span>YOUR WORKFLOW</span><span class="workflow-live"><i></i> SIMPLE &amp; LIVE</span></div>
+<div class="workflow-step"><span class="workflow-number">01</span><div><strong>Choose a format</strong><small>Start with the report or presentation you need.</small></div></div>
+<div class="workflow-connector"></div>
+<div class="workflow-step"><span class="workflow-number">02</span><div><strong>Add your content</strong><small>Fill in your project details in the editor.</small></div></div>
+<div class="workflow-connector"></div>
+<div class="workflow-step"><span class="workflow-number">03</span><div><strong>Preview &amp; export</strong><small>Review the layout and download your file.</small></div></div>
+<div class="workflow-footer"><span class="workflow-file-icon">DOC</span><span class="workflow-file-icon ppt">PPT</span><span>Editable document drafts</span></div>
+</aside>
+</section>
 <div class="choice-grid" id="choiceGrid">
 <button type="button" class="choice" data-type="internship" data-category="report" data-search="summer internship report organization work implementation results references"><span class="choice-icon">01</span><div><h2>Summer Internship Report</h2><p>Organization profile, work completed, implementation, results and references.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
 <button type="button" class="choice" data-type="minor1" data-category="report" data-search="minor project one report problem literature methodology plan"><span class="choice-icon">02</span><div><h2>Minor Project I Report</h2><p>Problem definition, literature review, methodology and project plan.</p></div><div class="choice-bottom"><span class="choice-type">Report · DOCX</span><span>Continue →</span></div></button>
@@ -327,12 +375,6 @@ const workspaceInfoToggle=document.getElementById("workspaceInfoToggle");
 workspaceInfoToggle.addEventListener("click",()=>{
  const panel=document.getElementById("workspaceInfo");
  const opening=panel.hidden;panel.hidden=!opening;workspaceInfoToggle.setAttribute("aria-expanded",String(opening));
-});
-const howToggle=document.getElementById("howItWorksToggle");
-howToggle.addEventListener("click",()=>{
- const panel=document.getElementById("howItWorks");
- const opening=panel.hidden;panel.hidden=!opening;howToggle.setAttribute("aria-expanded",String(opening));
- howToggle.querySelector(".text-action-icon").textContent=opening?"−":"＋";
 });
 document.getElementById("browseTemplates").addEventListener("click",()=>{
  const firstCard=document.querySelector("#choiceGrid .choice");
